@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     SignInButton signInBtn;
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
-//    FirebaseDatabase firebaseDatabase;
+    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-//        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         googleSignInConfigure();
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("User", "getProfileInfo: " + user.getName());
             Log.e("User", "getProfileInfo: " + personId);
 
-//            firebaseDatabase.getReference().child("User").child(personId).setValue(user);
+            firebaseDatabase.getReference().child("User").child(personId).setValue(user);
             startActivity(new Intent(this, MyProfile.class));
             finish();
 
