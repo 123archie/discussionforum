@@ -1,6 +1,6 @@
 package com.hemant.askagain;
 
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,9 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-
-import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,9 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     SignInButton signInBtn;
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
+//    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-
+//        firebaseDatabase = FirebaseDatabase.getInstance();
         googleSignInConfigure();
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
@@ -99,8 +96,13 @@ public class MainActivity extends AppCompatActivity {
             Log.e("User", "getProfileInfo: " + user.getProfilePic());
             Log.e("User", "getProfileInfo: " + user.getName());
             Log.e("User", "getProfileInfo: " + personId);
+
+//            firebaseDatabase.getReference().child("User").child(personId).setValue(user);
             startActivity(new Intent(this, MyProfile.class));
             finish();
+
+
+
         }
     }
 
