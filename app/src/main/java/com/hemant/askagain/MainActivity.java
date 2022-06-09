@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openMyProfile() {
-        startActivity(new Intent(this, MyProfile.class));
+        startActivity(new Intent(this, DashboardActivity.class));
         finish();
     }
 
