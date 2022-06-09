@@ -17,6 +17,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,9 +90,18 @@ public class MainActivity extends AppCompatActivity {
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
 
-            User user = new User(personName,personPhoto.toString());
-            FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
+
+            Query query = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
+
+            if(query != null){
+                Log.d("TAG", "getProfileInfo: user already registered no need to update realtime data");
+            }else{
+                Log.d("TAG", "getProfileInfo: new user found register in realtime database");
+                User user = new User(personName,personPhoto.toString());
+                FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
+            }
             openMyProfile();
+
         }
     }
 
