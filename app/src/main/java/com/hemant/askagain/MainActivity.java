@@ -1,5 +1,6 @@
 package com.hemant.askagain;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +17,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -90,18 +95,28 @@ public class MainActivity extends AppCompatActivity {
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
 
+            DatabaseReference databaseReference;
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
+            Log.d("TAG", "getProfileInfo: "+ databaseReference);
 
-            Query query = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        Log.d("TAG", "onDataChange: user already exist");
+                    }else{
+                        Log.d("TAG", "onDataChange: new user register");
+                        User user = new User(personName,personPhoto.toString());
+                        FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
+                    }
+                    openMyProfile();
+                }
 
-            if(query != null){
-                Log.d("TAG", "getProfileInfo: user already registered no need to update realtime data");
-            }else{
-                Log.d("TAG", "getProfileInfo: new user found register in realtime database");
-                User user = new User(personName,personPhoto.toString());
-                FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
-            }
-            openMyProfile();
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
+                }
+            });
         }
     }
 
