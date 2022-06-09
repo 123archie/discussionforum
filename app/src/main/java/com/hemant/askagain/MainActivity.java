@@ -21,15 +21,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int RC_SIGN_IN = 100;
-    SignInButton signInBtn;
-    GoogleSignInOptions googleSignInOptions;
-    GoogleSignInClient googleSignInClient;
+    private static final int RC_SIGN_IN = 100;
+    private SignInButton signInBtn;
+    private GoogleSignInOptions googleSignInOptions;
+    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         googleSignInConfigure();
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null){
-            Intent intent = new Intent(this, MyProfile.class);
-            startActivity(intent);
-            finish();
-        }
+        checkPreviousSignIn();
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +46,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-
+    private void checkPreviousSignIn() {
+        // Check for any previous signIn User after launch
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account != null){
+            Intent intent = new Intent(this, MyProfile.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void signIn() {
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getProfileInfo() {
+        // Getting the profile info of signed in user
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personName = acct.getDisplayName();
@@ -102,9 +104,8 @@ public class MainActivity extends AppCompatActivity {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
+                    if(!snapshot.exists()){
                         Log.d("TAG", "onDataChange: user already exist");
-                    }else{
                         Log.d("TAG", "onDataChange: new user register");
                         User user = new User(personName,personPhoto.toString());
                         FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
@@ -121,11 +122,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openMyProfile() {
+        // Opening the next activity
         startActivity(new Intent(this, MyProfile.class));
         finish();
     }
 
     private void googleSignInConfigure() {
+        // Building google SignInOptions and SignInClient
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        // Initializing the Views
         signInBtn = findViewById(R.id.signInBtn);
     }
 }
