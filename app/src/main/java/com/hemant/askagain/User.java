@@ -4,12 +4,12 @@ import android.net.Uri;
 
 public class User {
     String name;
-    Uri profilePic;
+    String  profilePic;
 
     public User() {
     }
 
-    public User(String name, Uri profilePic) {
+    public User(String name, String profilePic) {
         this.name = name;
         this.profilePic = profilePic;
     }
@@ -22,11 +22,11 @@ public class User {
         this.name = name;
     }
 
-    public Uri getProfilePic() {
+    public String getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Uri profilePic) {
+    public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
 }

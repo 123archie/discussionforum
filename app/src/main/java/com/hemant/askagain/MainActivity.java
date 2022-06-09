@@ -1,6 +1,5 @@
 package com.hemant.askagain;
 
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -16,8 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     SignInButton signInBtn;
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
-    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-        firebaseDatabase = FirebaseDatabase.getInstance();
         googleSignInConfigure();
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
+            Log.e("TAG", "signInResult:failed code=" + e.getStatusCode());
         }
     }
 
@@ -92,18 +90,24 @@ public class MainActivity extends AppCompatActivity {
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
 
-            User user = new User(personName,personPhoto);
-            Log.e("User", "getProfileInfo: " + user.getProfilePic());
-            Log.e("User", "getProfileInfo: " + user.getName());
-            Log.e("User", "getProfileInfo: " + personId);
 
-            firebaseDatabase.getReference().child("User").child(personId).setValue(user);
-            startActivity(new Intent(this, MyProfile.class));
-            finish();
+            Query query = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
 
-
+            if(query != null){
+                Log.d("TAG", "getProfileInfo: user already registered no need to update realtime data");
+            }else{
+                Log.d("TAG", "getProfileInfo: new user found register in realtime database");
+                User user = new User(personName,personPhoto.toString());
+                FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
+            }
+            openMyProfile();
 
         }
+    }
+
+    private void openMyProfile() {
+        startActivity(new Intent(this, MyProfile.class));
+        finish();
     }
 
     private void googleSignInConfigure() {
