@@ -93,13 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
             Query query = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
 
-            if(query != null){
-                Log.d("TAG", "getProfileInfo: user already registered no need to update realtime data");
-            }else{
+            if(query == null){
+
                 Log.d("TAG", "getProfileInfo: new user found register in realtime database");
                 User user = new User(personName,personPhoto.toString());
                 FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
             }
+            Log.d("TAG", "getProfileInfo: user already registered no need to update realtime data");
+            Log.d("TAG", "getProfileInfo: "+ personId);
             openMyProfile();
 
         }
