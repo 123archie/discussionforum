@@ -5,15 +5,17 @@ import android.net.Uri;
 public class User {
     String name;
     String  profilePic;
+    String email;
 
     public User() {
     }
 
 
 
-    public User(String name, String profilePic) {
+    public User(String name, String profilePic,String email) {
         this.name = name;
         this.profilePic = profilePic;
+        this.email = email;
     }
 
     public String getName() {

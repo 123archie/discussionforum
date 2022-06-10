@@ -96,10 +96,12 @@ public class MainActivity extends AppCompatActivity {
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+            User user = new User(personName,personPhoto.toString(), personEmail);
 
             DatabaseReference databaseReference;
             databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
             Log.d("TAG", "getProfileInfo: "+ databaseReference);
+            Log.d("TAG", "given name: "+ personGivenName + "family name" + personFamilyName);
 
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -107,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                     if(!snapshot.exists()){
                         Log.d("TAG", "onDataChange: user already exist");
                         Log.d("TAG", "onDataChange: new user register");
-                        User user = new User(personName,personPhoto.toString());
                         FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
                     }
                     openMyProfile();
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openMyProfile() {
         // Opening the next activity
-        startActivity(new Intent(this, MyProfile.class));
+        startActivity(new Intent(this, HomePage.class));
         finish();
     }
 
