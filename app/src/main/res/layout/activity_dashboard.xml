@@ -31,6 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomnavbar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="#8104FE"

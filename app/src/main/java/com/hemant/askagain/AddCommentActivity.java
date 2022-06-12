@@ -37,6 +37,7 @@ public class AddCommentActivity extends AppCompatActivity {
         relativeLayout=findViewById(R.id.relativeLayout);
         editText=findViewById(R.id.text);
         button=findViewById(R.id.btn);
+
         mDatabase= FirebaseDatabase.getInstance().getReference();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +49,8 @@ public class AddCommentActivity extends AppCompatActivity {
     }
 
     private void addcomment() {
-        mDatabase.child("Question1").chil;
+        String post=editText.getText().toString();
+        mDatabase.child("Comments").push().setValue(post);
         ChildEventListener childEventListener=new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
