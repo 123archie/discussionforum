@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signIn();
+                Intent intent=new Intent(MainActivity.this, AddCommentActivity.class);
+                startActivity(intent);
             }
         });
 
