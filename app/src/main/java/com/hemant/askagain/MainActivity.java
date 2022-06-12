@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SignInButton signInBtn;
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Check for any previous signIn User after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
-            Intent intent = new Intent(this, MyProfile.class);
-            startActivity(intent);
-            finish();
+            openHomePage();
         }
     }
 
@@ -96,12 +95,10 @@ public class MainActivity extends AppCompatActivity {
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
-            User user = new User(personName,personPhoto.toString(), personEmail);
+            user = new User(personName,personPhoto.toString(), personEmail);
 
             DatabaseReference databaseReference;
             databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
-            Log.d("TAG", "getProfileInfo: "+ databaseReference);
-            Log.d("TAG", "given name: "+ personGivenName + "family name" + personFamilyName);
 
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -111,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("TAG", "onDataChange: new user register");
                         FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
                     }
-                    openMyProfile();
+                    openHomePage();
                 }
 
                 @Override
@@ -122,9 +119,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openMyProfile() {
+    private void openHomePage() {
         // Opening the next activity
-        startActivity(new Intent(this, HomePage.class));
+        Intent intent =new Intent(this, HomePage.class);
+        startActivity(intent);
         finish();
     }
 

@@ -1,6 +1,6 @@
 package com.hemant.askagain;
 
-import android.net.Uri;
+import android.os.Parcel;
 
 public class User {
     String name;
@@ -10,9 +10,15 @@ public class User {
     public User() {
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public User(String name, String profilePic,String email) {
+    public User(String name, String profilePic, String email) {
         this.name = name;
         this.profilePic = profilePic;
         this.email = email;
@@ -33,4 +39,5 @@ public class User {
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
+
 }
