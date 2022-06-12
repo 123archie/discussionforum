@@ -182,7 +182,7 @@
             android:layout_height="wrap_content"
             android:text="LogOUT"
             app:icon="@drawable/ic_baseline_logout"
-            android:layout_marginStart="140dp"/>
+            android:layout_marginStart="100dp"/>
 
     </LinearLayout>
 

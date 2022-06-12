@@ -47,10 +47,24 @@ public class MyProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         initViews(view);
 
+        SetUserInfo();
+
         Bundle bundle = this.getArguments();
         user = new User(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
+        user.setGender(bundle.getString("Gender"));
+        user.setProfession(bundle.getString("Profession"));
+        user.setContactNumber(bundle.getString("Contact"));
 
-        SetUserInfo();
+        if(user.getProfession() != null){
+            personProfession.setText(user.getProfession());
+            personProfession2.setText(user.getProfession());
+        }
+        if(user.getGender() != null){
+            personGender.setText(user.getGender());
+        }
+        if(user.getContactNumber() != null){
+            personContact.setText(user.getContactNumber());
+        }
 
         googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -69,13 +83,17 @@ public class MyProfileFragment extends Fragment {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                openDialogBox();
             }
         });
 
-
-
         return view;
+    }
+
+    private void openDialogBox() {
+        Log.d("TAG", "openDialogBox: dialog open");
+        UpdateProfileDialog updateProfileDialog = new UpdateProfileDialog();
+        updateProfileDialog.show(getParentFragmentManager(),"UpdateFragment Dialog");
     }
 
     private void SetUserInfo() {

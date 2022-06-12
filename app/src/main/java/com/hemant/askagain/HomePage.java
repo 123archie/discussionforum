@@ -73,6 +73,9 @@ public class HomePage extends AppCompatActivity {
         bundle.putString("Name", user.getName() );
         bundle.putString("Email", user.getEmail());
         bundle.putString("ProfilePic", user.getProfilePic());
+        bundle.putString("Contact", user.getContactNumber());
+        bundle.putString("Gender", user.getGender());
+        bundle.putString("Profession", user.getProfession());
 
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment,fragment).commit();

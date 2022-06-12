@@ -1,13 +1,44 @@
 package com.hemant.askagain;
 
-import android.os.Parcel;
-
 public class User {
     String name;
     String  profilePic;
     String email;
+    String contactNumber;
+    String profession;
+    String gender;
 
     public User() {
+    }
+
+    public User(String name, String profilePic, String email) {
+        this.name = name;
+        this.profilePic = profilePic;
+        this.email = email;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getEmail() {
@@ -15,12 +46,6 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public User(String name, String profilePic, String email) {
-        this.name = name;
-        this.profilePic = profilePic;
         this.email = email;
     }
 
