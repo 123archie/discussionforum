@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signIn();
-                Intent intent=new Intent(MainActivity.this, AddCommentActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -103,9 +101,15 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d("TAG", "getProfileInfo: user already registered no need to update realtime data");
             Log.d("TAG", "getProfileInfo: "+ personId);
-            openMyProfile();
+            openAddComment();
 
         }
+    }
+
+    private void openAddComment(){
+        Intent intent=new Intent(MainActivity.this, AddCommentActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void openMyProfile() {

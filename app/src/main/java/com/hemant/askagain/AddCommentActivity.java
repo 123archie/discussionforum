@@ -4,25 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Comment;
 
 public class AddCommentActivity extends AppCompatActivity {
 
@@ -42,15 +38,19 @@ public class AddCommentActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addcomment();
+                addComment();
             }
         });
 
     }
 
-    private void addcomment() {
+    private void addComment() {
         String post=editText.getText().toString();
-        mDatabase.child("Comments").push().setValue(post);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+
+        mDatabase.child("Comments").child("description").setValue(post);
+        mDatabase.child("Comments").child("commentedBy").setValue(acct.getId());
+
         ChildEventListener childEventListener=new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
