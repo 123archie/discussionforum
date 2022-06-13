@@ -9,6 +9,8 @@ public class User {
     public User() {
     }
 
+
+
     public User(String name, String profilePic) {
         this.name = name;
         this.profilePic = profilePic;
