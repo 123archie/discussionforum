@@ -1,7 +1,6 @@
 package com.hemant.askagain;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,11 +23,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.net.URL;
 
 public class MyProfileFragment extends Fragment {
 
@@ -47,24 +43,8 @@ public class MyProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         initViews(view);
 
+        getBundleData();
         SetUserInfo();
-
-        Bundle bundle = this.getArguments();
-        user = new User(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
-        user.setGender(bundle.getString("Gender"));
-        user.setProfession(bundle.getString("Profession"));
-        user.setContactNumber(bundle.getString("Contact"));
-
-        if(user.getProfession() != null){
-            personProfession.setText(user.getProfession());
-            personProfession2.setText(user.getProfession());
-        }
-        if(user.getGender() != null){
-            personGender.setText(user.getGender());
-        }
-        if(user.getContactNumber() != null){
-            personContact.setText(user.getContactNumber());
-        }
 
         googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -84,10 +64,31 @@ public class MyProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 openDialogBox();
+                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+                FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        user = snapshot.getValue(User.class);
+                        SetUserInfo();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
         return view;
+    }
+
+    private void getBundleData() {
+        Bundle bundle = this.getArguments();
+        user = new User(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
+        user.setGender(bundle.getString("Gender"));
+        user.setProfession(bundle.getString("Profession"));
+        user.setContactNumber(bundle.getString("Contact"));
     }
 
     private void openDialogBox() {
@@ -103,6 +104,17 @@ public class MyProfileFragment extends Fragment {
             Glide.with(MyProfileFragment.this)
                     .load(user.getProfilePic())
                     .into(profilePic);
+        }
+        // when data fields are updated or changed if dialog box is open
+        if(user.getProfession() != null){
+            personProfession.setText(user.getProfession());
+            personProfession2.setText(user.getProfession());
+        }
+        if(user.getGender() != null){
+            personGender.setText(user.getGender());
+        }
+        if(user.getContactNumber() != null){
+            personContact.setText(user.getContactNumber());
         }
     }
 
