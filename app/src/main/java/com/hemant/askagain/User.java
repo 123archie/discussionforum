@@ -4,7 +4,7 @@ import android.net.Uri;
 
 public class User {
     String name;
-    String  profilePic;
+    String  profilePic = null;
 
     public User() {
     }

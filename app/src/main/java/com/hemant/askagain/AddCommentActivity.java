@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +39,9 @@ public class AddCommentActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 addComment();
+                startActivity(new Intent(AddCommentActivity.this, DashboardActivity.class));
             }
         });
 
@@ -54,31 +57,27 @@ public class AddCommentActivity extends AppCompatActivity {
         ChildEventListener childEventListener=new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.d("ChildAdded","onChildAdded"+snapshot.getKey());
-                AddCommentActivity comment=snapshot.getValue(AddCommentActivity.class);
+                  AddCommentActivity comment=snapshot.getValue(AddCommentActivity.class);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.d("ChildChanged","onChildChanged:"+snapshot.getKey());
                 AddCommentActivity comment=snapshot.getValue(AddCommentActivity.class);
                 String commentKey= snapshot.getKey();}
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-               Log.d("ChildRemoved","onChildRemoved"+snapshot.getKey());
-               String commentKey= snapshot.getKey();}
+                String commentKey= snapshot.getKey();
+            }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.d("ChildMoved","onChildMoved"+snapshot.getKey());
                 AddCommentActivity movedComment=snapshot.getValue(AddCommentActivity.class);
                 String commentKey=snapshot.getKey();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-             Log.w("postComments:onCancelled",error.toException());
              Toast.makeText(AddCommentActivity.this, "Failed to Load Comments", Toast.LENGTH_SHORT).show();
             }
         };
