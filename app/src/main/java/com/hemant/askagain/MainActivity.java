@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openAddComment(){
-        Intent intent=new Intent(MainActivity.this, AddCommentActivity.class);
+        Intent intent=new Intent(MainActivity.this, CommentActivity.class);
         startActivity(intent);
         finish();
     }

@@ -41,7 +41,7 @@ public class AddCommentActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 addComment();
-                startActivity(new Intent(AddCommentActivity.this, DashboardActivity.class));
+                startActivity(new Intent(AddCommentActivity.this, CommentActivity.class));
             }
         });
 
