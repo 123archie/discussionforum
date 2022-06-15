@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Ask Again</string>
+   <string name="add_post">Post</string>
+    <string name="your_comments">Your Comments...</string>
+    <string name="Home">Home</string>
+    <string name="Dashboard">Dashboard</string>
+    <string name="my_Profile">My Profile</string>
+    <string name="add_File">Add File</string>
+    <string name="attach_link">Attach Link</string>
+    <string name="addcomments">+Add Comments</string>
+
 </resources>

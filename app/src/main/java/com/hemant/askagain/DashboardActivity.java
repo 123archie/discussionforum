@@ -14,17 +14,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class MyProfile extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity {
 
     Button signOut;
     GoogleSignInClient googleSignInClient;
     GoogleSignInOptions googleSignInOptions;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+
+        setContentView(R.layout.activity_dashboard);
+
+
 
         signOut = findViewById(R.id.signOutBtn);
 
@@ -37,9 +39,7 @@ public class MyProfile extends AppCompatActivity {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 signOut();
-
             }
         });
 
@@ -47,13 +47,13 @@ public class MyProfile extends AppCompatActivity {
 
     private void signOut() {
         if(googleSignInClient != null){
-        googleSignInClient.signOut()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                openSignIn();
-            }
-        });
+            googleSignInClient.signOut()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            openSignIn();
+                        }
+                    });
         }
 
     }

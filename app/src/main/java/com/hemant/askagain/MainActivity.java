@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SignInButton signInBtn;
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +53,14 @@ public class MainActivity extends AppCompatActivity {
         // Check for any previous signIn User after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
-            Intent intent = new Intent(this, MyProfile.class);
-            startActivity(intent);
-            finish();
+           openMyProfile();
         }
     }
 
     private void signIn() {
         Intent intent = googleSignInClient.getSignInIntent();
         startActivityForResult(intent,RC_SIGN_IN);
-    }
+   }
 
 
     @Override
@@ -104,13 +103,18 @@ public class MainActivity extends AppCompatActivity {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(!snapshot.exists()){
+                    if(snapshot.exists()){
                         Log.d("TAG", "onDataChange: user already exist");
-                        Log.d("TAG", "onDataChange: new user register");
-                        User user = new User(personName,personPhoto.toString());
+                    }else{
+                        Log.d("TAG", "onDataChange: " + personPhoto.toString());
+                        if(personPhoto.toString() == null){
+                            user.setName(personName);
+                        }else{
+                            user = new User(personName,personPhoto.toString());
+                        }
                         FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
                     }
-                    openMyProfile();
+                    openAddComment();
                 }
 
                 @Override
@@ -119,6 +123,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void openAddComment(){
+        Intent intent=new Intent(MainActivity.this, CommentActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void openMyProfile() {
