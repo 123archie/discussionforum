@@ -19,16 +19,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class CommentActivity extends AppCompatActivity {
+public String author;
+public String title;
+
+   private FirebaseDatabase firebaseDatabase;
    private DatabaseReference mDatabase;
-   private DatabaseReference messagesf;
+   private DatabaseReference messages_f;
    private Button btncomment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         btncomment=findViewById(R.id.button_cmnt);
-        mDatabase= FirebaseDatabase.getInstance().getReference();
-        showcomments();
+
+
+        Log.d("TAG", "onCreate: show comment started");
+        show_comments();
         btncomment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,20 +44,31 @@ public class CommentActivity extends AppCompatActivity {
 
     }
 
-    private void showcomments() {
-        messagesf=mDatabase.child("description");
-        messagesf.addValueEventListener(new ValueEventListener() {
+    private void show_comments() {
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        mDatabase=firebaseDatabase.getReference().child("Comments");
+        Log.d("TAG", "show_comments: " + mDatabase);
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot snapshot1: snapshot.getChildren()){
-                    Message message=snapshot.child("description").getValue(Message.class);
+                if(snapshot.exists()){
+                    Log.d("TAG", "onDataChange: snapshot exist");
+                    comment comment = snapshot.getValue(comment.class);
+                    Log.d("TAG", "onDataChange: comment initiated"+ comment.getCommentedBy() + "discription" + comment.getDescription());
+                    System.out.println(comment);
+
+                    
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("TAG","messages:onCancelled:"+error.getMessage());
+                 System.out.println("The read failed: " +error.getMessage());
+                 CommentActivity.super.onStart();
+                 adapter.startListening();
             }
         });
     }
+
 }
