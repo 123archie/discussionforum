@@ -23,9 +23,6 @@
             android:name=".DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".MyProfile"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

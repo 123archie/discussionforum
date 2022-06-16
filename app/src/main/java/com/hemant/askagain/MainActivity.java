@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Check for any previous signIn User after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
-           openMyProfile();
+           openHomePage();
         }
     }
 
@@ -95,26 +95,19 @@ public class MainActivity extends AppCompatActivity {
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+            user = new User(personName,personPhoto.toString(),personEmail);
 
             DatabaseReference databaseReference;
             databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
-            Log.d("TAG", "getProfileInfo: "+ databaseReference);
 
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        Log.d("TAG", "onDataChange: user already exist");
-                    }else{
-                        Log.d("TAG", "onDataChange: " + personPhoto.toString());
-                        if(personPhoto.toString() == null){
-                            user.setName(personName);
-                        }else{
-                            user = new User(personName,personPhoto.toString());
-                        }
+                    if(!snapshot.exists()){
+                        Log.d("TAG", "onDataChange: new user");
                         FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
                     }
-                    openAddComment();
+                    openHomePage();
                 }
 
                 @Override
@@ -125,15 +118,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openAddComment(){
-        Intent intent=new Intent(MainActivity.this, CommentActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void openMyProfile() {
+    private void openHomePage(){
         // Opening the next activity
-        startActivity(new Intent(this, MyProfile.class));
+        Intent intent=new Intent(this, HomePage.class);
+        startActivity(intent);
         finish();
     }
 
