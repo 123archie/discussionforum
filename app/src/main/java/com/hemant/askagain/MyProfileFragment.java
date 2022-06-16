@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -83,7 +84,7 @@ public class MyProfileFragment extends Fragment {
 
     private void getBundleData() {
         Bundle bundle = this.getArguments();
-        user = new User(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
+        user = new User(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"),null,null,null);
         user.setGender(bundle.getString("Gender"));
         user.setProfession(bundle.getString("Profession"));
         user.setContactNumber(bundle.getString("Contact"));
@@ -130,9 +131,9 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void openSignIn() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
     }
 
     private void initViews(View view) {

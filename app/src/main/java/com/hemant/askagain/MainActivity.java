@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Check for any previous signIn User after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
-           openHomePage();
+            openHomePage();
         }
     }
 
@@ -89,23 +89,18 @@ public class MainActivity extends AppCompatActivity {
         // Getting the profile info of signed in user
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-            user = new User(personName,personPhoto.toString(),personEmail);
+            user = new User(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail(),null,null,null);
 
-            DatabaseReference databaseReference;
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
-
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance()
+                    .getReference()
+                    .child("User")
+                    .child(acct.getId())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(!snapshot.exists()){
-                        Log.d("TAG", "onDataChange: new user");
-                        FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
+                        Log.d("TAG", "onDataChange: new user register");
+                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).setValue(user);
                     }
                     openHomePage();
                 }
@@ -118,9 +113,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openHomePage(){
+
+    private void openHomePage() {
         // Opening the next activity
-        Intent intent=new Intent(this, HomePage.class);
+        Intent intent =new Intent(this, HomePage.class);
         startActivity(intent);
         finish();
     }

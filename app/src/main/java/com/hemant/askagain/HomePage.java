@@ -35,7 +35,7 @@ public class HomePage extends AppCompatActivity {
 
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new MyProfileFragment());
+        replaceFragment(new DashboardFragment());
         getUserInfo();
 
         binding.fabAddPostBtn.setOnClickListener(new View.OnClickListener() {

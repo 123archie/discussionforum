@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -19,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class UpdateProfileDialog extends AppCompatDialogFragment {
+
     TextInputEditText etProfession,etContact;
     RadioGroup radioGroupGender;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
