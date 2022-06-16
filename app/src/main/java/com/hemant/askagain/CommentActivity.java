@@ -2,14 +2,12 @@ package com.hemant.askagain;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +26,7 @@ public class CommentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comment);
         btncomment=findViewById(R.id.button_cmnt);
         mDatabase= FirebaseDatabase.getInstance().getReference();
-        showcomments();
+        showComments();
         btncomment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,7 +36,7 @@ public class CommentActivity extends AppCompatActivity {
 
     }
 
-    private void showcomments() {
+    private void showComments() {
         messagesf=mDatabase.child("description");
         messagesf.addValueEventListener(new ValueEventListener() {
             @Override

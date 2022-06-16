@@ -2,22 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/dashboard"
-<<<<<<< HEAD
-        android:title="@string/Home"
-        android:icon="@drawable/ic_home"
-        />
-
-
-    <item
-        android:id="@+id/my_profile"
-        android:title="@string/my_Profile"
-        android:icon="@drawable/ic_profile"/>
-=======
         android:title="Dashboard"
         android:icon="@drawable/ic_baseline_home"/>
     <item
         android:id="@+id/my_profile"
         android:title="My Profile"
         android:icon="@drawable/ic_baseline_person"/>
->>>>>>> development
 </menu>

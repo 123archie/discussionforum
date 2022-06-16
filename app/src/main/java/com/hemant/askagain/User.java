@@ -8,6 +8,9 @@ public class User {
     String profession;
     String gender;
 
+    public User() {
+    }
+
     public String getName() {
         return name;
     }
