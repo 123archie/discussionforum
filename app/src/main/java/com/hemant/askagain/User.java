@@ -11,10 +11,13 @@ public class User {
     public User() {
     }
 
-    public User(String name, String profilePic, String email) {
+    public User(String name, String profilePic, String email, String contactNumber, String profession, String gender) {
         this.name = name;
         this.profilePic = profilePic;
         this.email = email;
+        this.contactNumber = contactNumber;
+        this.profession = profession;
+        this.gender = gender;
     }
 
     public String getContactNumber() {

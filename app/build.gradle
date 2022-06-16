@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:21.0.0'
     implementation 'com.google.firebase:firebase-database:20.0.5'
 
-    // GLide dependencies for profile pic
+    // Glide dependencies for profile pic
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 

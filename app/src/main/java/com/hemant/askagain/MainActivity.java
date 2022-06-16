@@ -89,24 +89,18 @@ public class MainActivity extends AppCompatActivity {
         // Getting the profile info of signed in user
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-            user = new User(personName,personPhoto.toString(), personEmail);
+            user = new User(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail(),null,null,null);
 
-            DatabaseReference databaseReference;
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
-
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance()
+                    .getReference()
+                    .child("User")
+                    .child(acct.getId())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(!snapshot.exists()){
-                        Log.d("TAG", "onDataChange: user already exist");
                         Log.d("TAG", "onDataChange: new user register");
-                        FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
+                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).setValue(user);
                     }
                     openHomePage();
                 }

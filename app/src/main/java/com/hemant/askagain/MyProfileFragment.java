@@ -85,7 +85,7 @@ public class MyProfileFragment extends Fragment {
 
     private void getBundleData() {
         Bundle bundle = this.getArguments();
-        user = new User(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
+        user = new User(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"),null,null,null);
         user.setGender(bundle.getString("Gender"));
         user.setProfession(bundle.getString("Profession"));
         user.setContactNumber(bundle.getString("Contact"));
