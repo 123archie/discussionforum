@@ -1,10 +1,15 @@
 package com.hemant.askagain;
 
-public class comment {
+public class Comment {
     private String commentedBy;
     private String description;
 
-    public comment() {
+    public Comment() {
+    }
+
+    public Comment(String commentedBy, String description) {
+        this.commentedBy = commentedBy;
+        this.description = description;
     }
 
     public String getCommentedBy() {
@@ -23,8 +28,4 @@ public class comment {
         this.description = description;
     }
 
-    public comment(String commentedBy, String description) {
-        this.commentedBy = commentedBy;
-        this.description = description;
-    }
 }
