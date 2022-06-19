@@ -118,12 +118,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    private void openAddCommentPage() {
-        // Opening the next activity
-        Intent intent =new Intent(this, AddCommentActivity2.class);
-        startActivity(intent);
-        finish();
-    }
+
 
     private void googleSignInConfigure() {
         // Building google SignInOptions and SignInClient
