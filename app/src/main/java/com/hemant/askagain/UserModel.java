@@ -59,13 +59,10 @@ public class UserModel {
         this.gender = gender;
     }
 
-    public UserModel(String name, String profilePic, String email, String contactNumber, String profession, String gender) {
+    public UserModel(String name, String profilePic, String email) {
         this.name = name;
         this.profilePic = profilePic;
         this.email = email;
-        this.contactNumber = contactNumber;
-        this.profession = profession;
-        this.gender = gender;
     }
 
 

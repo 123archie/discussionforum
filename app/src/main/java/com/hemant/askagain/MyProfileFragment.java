@@ -43,7 +43,6 @@ public class MyProfileFragment extends Fragment {
         initViews(view);
         // get bundle data
         getBundleData();
-        SetUserInfo();
 
         googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -64,7 +63,7 @@ public class MyProfileFragment extends Fragment {
             public void onClick(View view) {
                 openDialogBox();
                 GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
-                FirebaseDatabase.getInstance().getReference().child("UserModel").child(acct.getId()).addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         userModel = snapshot.getValue(UserModel.class);
@@ -84,10 +83,11 @@ public class MyProfileFragment extends Fragment {
 
     private void getBundleData() {
         Bundle bundle = this.getArguments();
-        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"),null,null,null);
+        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
         userModel.setGender(bundle.getString("Gender"));
         userModel.setProfession(bundle.getString("Profession"));
         userModel.setContactNumber(bundle.getString("Contact"));
+        SetUserInfo();
     }
 
     private void openDialogBox() {

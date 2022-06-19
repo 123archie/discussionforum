@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail(),null,null,null);
+            userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
 
             FirebaseDatabase.getInstance()
                     .getReference()
