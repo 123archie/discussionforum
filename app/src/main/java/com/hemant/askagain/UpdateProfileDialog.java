@@ -54,7 +54,7 @@ public class UpdateProfileDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
-                        databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId());
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("UserModel").child(acct.getId());
 
                         profession =etProfession.getText().toString();
                         contactNumber = etContact.getText().toString();

@@ -1,38 +1,47 @@
 package com.hemant.askagain;
 
 public class PostModel {
-    String postedByProfilePic;
-    String postedByName;
+    String postId;
+    String postedBy;
     String postedTime;
     String textQuestion;
+    String imageQuestion;
+    int commentCount;
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
 
     public PostModel() {
     }
 
-    String like;
 
-    public PostModel(String postedByProfilePic, String postedByName, String postedTime, String textQuestion, String like) {
-        this.postedByProfilePic = postedByProfilePic;
-        this.postedByName = postedByName;
-        this.postedTime = postedTime;
-        this.textQuestion = textQuestion;
-        this.like = like;
+    public String getImageQuestion() {
+        return imageQuestion;
     }
 
-    public String getPostedByProfilePic() {
-        return postedByProfilePic;
+    public void setImageQuestion(String imageQuestion) {
+        this.imageQuestion = imageQuestion;
     }
 
-    public void setPostedByProfilePic(String postedByProfilePic) {
-        this.postedByProfilePic = postedByProfilePic;
+    public String getPostedBy() {
+        return postedBy;
     }
 
-    public String getPostedByName() {
-        return postedByName;
-    }
-
-    public void setPostedByName(String postedByName) {
-        this.postedByName = postedByName;
+    public void setPostedBy(String postedBy) {
+        this.postedBy = postedBy;
     }
 
     public String getPostedTime() {
@@ -51,11 +60,6 @@ public class PostModel {
         this.textQuestion = textQuestion;
     }
 
-    public String getLike() {
-        return like;
-    }
 
-    public void setLike(String like) {
-        this.like = like;
-    }
+
 }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,25 +32,13 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         initViews(view);
-//        createPost();
-
-
-
         getAllPost();
 
         return view;
     }
 
-//    private void createPost() {
-//        PostModel post;
-//        post = new PostModel("https://lh3.googleusercontent.com/a-/AOh14Gilzax1J-gyorswryPpi1UL6Lt5fO-vD7ZVrFjs",
-//                "Hemant Upadhyay",
-//                "fuck time",
-//                "What is your question",
-//                "2");
-//        FirebaseDatabase.getInstance().getReference().child("Posts").child("first").setValue(post);
-//
-//    }
+
+
 
     private void getAllPost() {
 
@@ -64,17 +53,16 @@ public class DashboardFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference().child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("TAG", "onDataChange: iteration");
                 if(snapshot.exists()){
-                    Log.d("TAG", "onDataChange: snapshot exist");
                     for (DataSnapshot ds: snapshot.getChildren()){
-                        Log.d("TAG", "onDataChange: " + ds.getValue());
                         PostModel post = ds.getValue(PostModel.class);
-                        Log.d("TAG", "onDataChange: adding in post list");
+                        Log.d("TAG", "onDataChange: " + post.getPostedBy());
+//                        post.setLike((Integer) ds.child("like").getValue());
+                        post.setPostId(ds.getKey());
                         postList.add(post);
-                        Log.d("TAG", "onDataChange: " + postList.size());
                     }
-                    postAdapter.notifyDataSetChanged();
+                    Log.d("TAG", "onDataChange: " + postList.size());
+                    postAdapter.notifyItemInserted(1);
                     Log.d("TAG", "onDataChange: notify data changed");
                 }
             }
@@ -88,5 +76,8 @@ public class DashboardFragment extends Fragment {
 
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.recyclerView);
+        if(postList.size()!= 0){
+            postList.clear();
+        }
     }
 }

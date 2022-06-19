@@ -33,7 +33,7 @@ public class MyProfileFragment extends Fragment {
     MaterialButton logOutBtn,editProfileBtn;
     GoogleSignInClient googleSignInClient;
     GoogleSignInOptions googleSignInOptions;
-    User user;
+    UserModel userModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +41,7 @@ public class MyProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         initViews(view);
-
+        // get bundle data
         getBundleData();
         SetUserInfo();
 
@@ -64,10 +64,10 @@ public class MyProfileFragment extends Fragment {
             public void onClick(View view) {
                 openDialogBox();
                 GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
-                FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("UserModel").child(acct.getId()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        user = snapshot.getValue(User.class);
+                        userModel = snapshot.getValue(UserModel.class);
                         SetUserInfo();
                     }
 
@@ -84,10 +84,10 @@ public class MyProfileFragment extends Fragment {
 
     private void getBundleData() {
         Bundle bundle = this.getArguments();
-        user = new User(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"),null,null,null);
-        user.setGender(bundle.getString("Gender"));
-        user.setProfession(bundle.getString("Profession"));
-        user.setContactNumber(bundle.getString("Contact"));
+        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"),null,null,null);
+        userModel.setGender(bundle.getString("Gender"));
+        userModel.setProfession(bundle.getString("Profession"));
+        userModel.setContactNumber(bundle.getString("Contact"));
     }
 
     private void openDialogBox() {
@@ -97,23 +97,23 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void SetUserInfo() {
-        personName.setText(user.getName());
-        personEmail.setText(user.getEmail());
-        if(user.getProfilePic() != null) {
+        personName.setText(userModel.getName());
+        personEmail.setText(userModel.getEmail());
+        if(userModel.getProfilePic() != null) {
             Glide.with(MyProfileFragment.this)
-                    .load(user.getProfilePic())
+                    .load(userModel.getProfilePic())
                     .into(profilePic);
         }
         // when data fields are updated or changed if dialog box is open
-        if(user.getProfession() != null){
-            personProfession.setText(user.getProfession());
-            personProfession2.setText(user.getProfession());
+        if(userModel.getProfession() != null){
+            personProfession.setText(userModel.getProfession());
+            personProfession2.setText(userModel.getProfession());
         }
-        if(user.getGender() != null){
-            personGender.setText(user.getGender());
+        if(userModel.getGender() != null){
+            personGender.setText(userModel.getGender());
         }
-        if(user.getContactNumber() != null){
-            personContact.setText(user.getContactNumber());
+        if(userModel.getContactNumber() != null){
+            personContact.setText(userModel.getContactNumber());
         }
     }
 

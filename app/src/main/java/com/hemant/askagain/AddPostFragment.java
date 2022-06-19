@@ -17,8 +17,8 @@ public class AddPostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_post,container,false);
-//        User user = new User();
-//        Log.d("TAG", "onCreateView: " +  user.getProfilePic());
+//        UserModel userModel = new UserModel();
+//        Log.d("TAG", "onCreateView: " +  userModel.getProfilePic());
 
 
         return view;

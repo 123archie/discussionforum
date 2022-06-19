@@ -8,5 +8,7 @@
     <string name="add_File">Add File</string>
     <string name="attach_link">Attach Link</string>
     <string name="addcomments">+Add Comments</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

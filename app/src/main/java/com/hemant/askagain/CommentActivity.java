@@ -30,7 +30,7 @@ public class CommentActivity extends AppCompatActivity {
         btncomment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CommentActivity.this, AddCommentActivity.class));
+                startActivity(new Intent(CommentActivity.this, AddCommentActivity2.class));
             }
         });
 

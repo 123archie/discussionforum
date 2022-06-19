@@ -27,7 +27,7 @@ public class HomePage extends AppCompatActivity {
     ActivityHomePageBinding binding;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = firebaseDatabase.getReference();
-    User user;
+    UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +68,15 @@ public class HomePage extends AppCompatActivity {
 
     private void sendUserInfoReplaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
+        Log.d("TAG", "sendUserInfoReplaceFragment: " + userModel);
 
         Bundle bundle = new Bundle();
-        bundle.putString("Name", user.getName() );
-        bundle.putString("Email", user.getEmail());
-        bundle.putString("ProfilePic", user.getProfilePic());
-        bundle.putString("Contact", user.getContactNumber());
-        bundle.putString("Gender", user.getGender());
-        bundle.putString("Profession", user.getProfession());
+        bundle.putString("Name", userModel.getName() );
+        bundle.putString("Email", userModel.getEmail());
+        bundle.putString("ProfilePic", userModel.getProfilePic());
+        bundle.putString("Contact", userModel.getContactNumber());
+        bundle.putString("Gender", userModel.getGender());
+        bundle.putString("Profession", userModel.getProfession());
 
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment,fragment).commit();
@@ -85,15 +86,11 @@ public class HomePage extends AppCompatActivity {
     private void getUserInfo() {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
-            Log.d("TAG", "getAndSetUserInfo: " + acct.getId());
             databaseReference.child("User").child(acct.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
-                        user = snapshot.getValue(User.class);
-                        Log.d("TAG", "onDataChange: USER" + user.getEmail());
-                        Log.d("TAG", "onDataChange: USER" + user.getName());
-                        Log.d("TAG", "onDataChange: USER" + user.getProfilePic());
+                        userModel = snapshot.getValue(UserModel.class);
                     }
                 }
 

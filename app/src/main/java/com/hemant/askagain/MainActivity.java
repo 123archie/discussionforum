@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -29,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private SignInButton signInBtn;
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
-    private User user;
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPreviousSignIn() {
-        // Check for any previous signIn User after launch
+        // Check for any previous signIn UserModel after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
             openHomePage();
@@ -86,21 +84,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getProfileInfo() {
-        // Getting the profile info of signed in user
+        // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            user = new User(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail(),null,null,null);
+            userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail(),null,null,null);
 
             FirebaseDatabase.getInstance()
                     .getReference()
-                    .child("User")
+                    .child("UserModel")
                     .child(acct.getId())
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(!snapshot.exists()){
-                        Log.d("TAG", "onDataChange: new user register");
-                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).setValue(user);
+                        Log.d("TAG", "onDataChange: new userModel register");
+                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).setValue(userModel);
                     }
                     openHomePage();
                 }
@@ -117,6 +115,12 @@ public class MainActivity extends AppCompatActivity {
     private void openHomePage() {
         // Opening the next activity
         Intent intent =new Intent(this, HomePage.class);
+        startActivity(intent);
+        finish();
+    }
+    private void openAddCommentPage() {
+        // Opening the next activity
+        Intent intent =new Intent(this, AddCommentActivity2.class);
         startActivity(intent);
         finish();
     }

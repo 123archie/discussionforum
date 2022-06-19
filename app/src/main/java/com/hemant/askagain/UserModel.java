@@ -1,6 +1,6 @@
 package com.hemant.askagain;
 
-public class User {
+public class UserModel {
     String name;
     String  profilePic;
     String email;
@@ -8,7 +8,7 @@ public class User {
     String profession;
     String gender;
 
-    public User() {
+    public UserModel() {
     }
 
     public String getName() {
@@ -59,7 +59,7 @@ public class User {
         this.gender = gender;
     }
 
-    public User(String name, String profilePic, String email, String contactNumber, String profession, String gender) {
+    public UserModel(String name, String profilePic, String email, String contactNumber, String profession, String gender) {
         this.name = name;
         this.profilePic = profilePic;
         this.email = email;
