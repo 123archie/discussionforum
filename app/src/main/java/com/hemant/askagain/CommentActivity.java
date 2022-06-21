@@ -65,8 +65,7 @@ public String title;
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                  System.out.println("The read failed: " +error.getMessage());
-                 CommentActivity.super.onStart();
-                 adapter.startListening();
+
             }
         });
     }

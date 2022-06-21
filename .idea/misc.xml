@@ -10,16 +10,23 @@
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/drawable/svg.xml" value="0.2185" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/font/fonts.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/activity_add_comment.xml" value="0.264" />
-        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/activity_comment.xml" value="0.264" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/activity_comment.xml" value="0.16342412451361868" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/activity_dashboard.xml" value="0.264" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/activity_home_page.xml" value="0.264" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/activity_my_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/comment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/commentlayout.xml" value="0.253125" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/commeny_layout.xml" value="0.253125" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/custom_listview.xml" value="0.253125" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/fragment_add_comment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/fragment_add_post.xml" value="0.264" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/fragment_dashboard.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/fragment_my_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/post_dashboard.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/text_list_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/layout/update_my_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/menu/bottom_nav_menu.xml" value="0.264" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/menu/menu.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/vaibhav/AndroidStudioProjects/Ask_again/app/src/main/res/menu/popup_menu.xml" value="0.25416666666666665" />
       </map>
