@@ -79,7 +79,7 @@ public class HomePage extends AppCompatActivity {
         bundle.putString("Profession", userModel.getProfession());
 
         fragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.fragment,fragment).commit();
+        fragmentTransaction.replace(R.id.fragment,fragment).addToBackStack(null).commit();
     }
 
 
@@ -108,7 +108,7 @@ public class HomePage extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment,fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
 }

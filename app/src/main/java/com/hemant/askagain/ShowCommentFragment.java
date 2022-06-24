@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +36,20 @@ public class ShowCommentFragment extends Fragment {
         initViews(view);
         getBundle();
         getSetAllComment();
+
+        commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new AddCommentFragment();
+                FragmentTransaction fragmentTransaction= getActivity().getSupportFragmentManager().beginTransaction();
+                // send posted by in bundle
+                Bundle bundle = new Bundle();
+                bundle.putString("PostId", postID);
+
+                fragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment,fragment).addToBackStack(null).commit();
+            }
+        });
 
         return view;
     }

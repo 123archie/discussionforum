@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,7 +39,7 @@ public class AddCommentFragment extends Fragment {
     TextView commentedByName;
     TextInputEditText answerText;
     AppCompatButton addCommentBtn;
-    String PostedBy, PostId;
+    String PostId;
     FirebaseStorage firebaseStorage;
     Uri uri;
     GoogleSignInAccount acct;
@@ -89,6 +91,7 @@ public class AddCommentFragment extends Fragment {
                                                             @Override
                                                             public void onSuccess(Void unused) {
                                                                 Log.d("TAG", "Succesful added");
+                                                                openDashBoard();
                                                             }
                                                         });
                                             }
@@ -112,6 +115,15 @@ public class AddCommentFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void openDashBoard() {
+
+        Fragment fragment = new DashboardFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment,fragment);
+        fragmentTransaction.commit();
     }
 
     private void openGallery() {
@@ -158,9 +170,7 @@ public class AddCommentFragment extends Fragment {
 
     private void getBundle() {
         Bundle bundle = this.getArguments();
-        PostedBy = bundle.getString("PostedBy");
         PostId = bundle.getString("PostId");
-        Log.d("TAG",PostedBy);
         Log.d("TAG",PostId);
     }
 

@@ -38,7 +38,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         CommentModel commentData = commentList.get(position);
-        Log.d("TAG", "onBindViewHolder: " + commentData.getTextAnswer());
         holder.commentPostBinding.textAnswer.setText(commentData.getTextAnswer());
 
 
@@ -51,7 +50,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             .placeholder(R.drawable.siu)
                             .into(holder.commentPostBinding.commentedByProfilePic);
                     holder.commentPostBinding.commentedByName.setText(snapshot.child("name").getValue().toString());
-                    Log.d("TAG", "onDataChange: " + snapshot.child("name").getValue().toString());
                 }
             }
 
@@ -60,6 +58,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             }
         });
+
+        if(commentData.getImageAnswer() != null){
+            Glide.with(context)
+                    .load(commentData.getImageAnswer())
+                    .into(holder.commentPostBinding.imageAnswer);
+            holder.commentPostBinding.imageAnswer.setVisibility(View.VISIBLE);
+        }
 
     }
 
