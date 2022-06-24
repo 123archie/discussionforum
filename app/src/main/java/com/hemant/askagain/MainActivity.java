@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
     private UserModel userModel;
+    boolean alreadyExist = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            getProfileInfo();
+            if(dataExist()){
+                getProfileInfo();
+            }
 
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
@@ -81,6 +84,27 @@ public class MainActivity extends AppCompatActivity {
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.e("TAG", "signInResult:failed code=" + e.getStatusCode());
         }
+    }
+
+    private boolean dataExist() {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        FirebaseDatabase.getInstance().getReference()
+                .child("User")
+                .child(acct.getId())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            alreadyExist = false;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+        return alreadyExist;
     }
 
     private void getProfileInfo() {
@@ -91,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
             FirebaseDatabase.getInstance()
                     .getReference()
-                    .child("UserModel")
+                    .child("User")
                     .child(acct.getId())
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

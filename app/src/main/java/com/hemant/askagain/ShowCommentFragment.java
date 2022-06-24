@@ -3,58 +3,62 @@ package com.hemant.askagain;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class DashboardFragment extends Fragment {
+public class ShowCommentFragment extends Fragment {
 
-    static ArrayList<PostModel> postList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private AppCompatButton commentBtn;
+    private String postID;
+    private CommentModel commentData;
+    static ArrayList<CommentModel> commentList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_comment,container,false);
         initViews(view);
-        getAllPost();
+        getBundle();
+        getSetAllComment();
 
         return view;
     }
 
+    private void getBundle() {
+        Bundle bundle = this.getArguments();
+        postID = bundle.getString("PostId");
+    }
 
+    private void getSetAllComment() {
 
-
-    private void getAllPost() {
-        PostAdapter postAdapter = new PostAdapter(postList,getContext());
+        CommentAdapter commentAdapter = new CommentAdapter(commentList,getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(postAdapter);
+        recyclerView.setAdapter(commentAdapter);
 
-        FirebaseDatabase.getInstance().getReference().child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Posts").child(postID).child("comments").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for (DataSnapshot ds: snapshot.getChildren()){
-                        PostModel post = ds.getValue(PostModel.class);
-                        post.setPostId(ds.getKey());
-                        postList.add(post);
+                        commentData = ds.getValue(CommentModel.class);
+                        commentList.add(commentData);
                     }
-                    postAdapter.notifyItemInserted(1);
+                    commentAdapter.notifyItemInserted(1);
                 }
             }
 
@@ -66,7 +70,8 @@ public class DashboardFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        recyclerView = view.findViewById(R.id.recyclerView);
-        postList.clear();
+        recyclerView = view.findViewById(R.id.commentRecyclerView);
+        commentBtn = view.findViewById(R.id.commentBtn);
+        commentList.clear();
     }
 }

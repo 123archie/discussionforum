@@ -7,6 +7,15 @@ public class PostModel {
     String textQuestion;
     String imageQuestion;
     int commentCount;
+    int likesCount;
+
+    public int getLikeCount() {
+        return likesCount;
+    }
+
+    public void setLikeCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
 
     public int getCommentCount() {
         return commentCount;
@@ -59,7 +68,6 @@ public class PostModel {
     public void setTextQuestion(String textQuestion) {
         this.textQuestion = textQuestion;
     }
-
 
 
 }

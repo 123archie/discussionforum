@@ -77,15 +77,15 @@ public class AddCommentFragment extends Fragment {
                                         .child("commentCount").addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                int commnetCount = 0;
+                                                int commentCount = 0;
                                                 if(snapshot.exists()){
-                                                    commnetCount = snapshot.getValue(Integer.class);
+                                                    commentCount = snapshot.getValue(Integer.class);
                                                 }
                                                 FirebaseDatabase.getInstance().getReference()
                                                         .child("Posts")
                                                         .child(PostId)
                                                         .child("commentCount")
-                                                        .setValue(commnetCount +1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        .setValue(commentCount +1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void unused) {
                                                                 Log.d("TAG", "Succesful added");

@@ -1,6 +1,7 @@
 package com.hemant.askagain;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +10,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -48,6 +49,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         PostModel postData = postList.get(position);
         // binding question
         holder.postDashboardBinding.textQuestion.setText(postData.getTextQuestion());
+        Log.d("TAG",postData.getPostedBy());
 
         FirebaseDatabase.getInstance().getReference()
                 .child("User")
@@ -75,6 +77,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         });
 
         holder.postDashboardBinding.commentCount.setText(postData.getCommentCount() + "");
+        holder.postDashboardBinding.likeCount.setText(postData.getLikeCount() + "");
+
+        FirebaseDatabase.getInstance().getReference().child("Posts").child(GoogleSignIn.getLastSignedInAccount(context).getId());
 
         if(postData.getImageQuestion() != null){
             Glide.with(context)
@@ -83,61 +88,95 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.postDashboardBinding.imageQuestion.setVisibility(View.VISIBLE);
         }
 
-//        holder.postDashboardBinding.like.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // if like clicked
-//                FirebaseDatabase.getInstance().getReference().child("Posts").child("likes").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if(snapshot.exists()){
-//                            // already liked
-//                            holder.postDashboardBinding.like.setColorFilter(R.color.orange);
-//                        }else{
-//                            // already liked
-//                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
-//                                    .child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId())
-//                                    .setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void unused) {
-//                                            FirebaseDatabase.getInstance().getReference()
-//                                                    .child("Posts")
-//                                                    .child(postData.getPostId())
-//                                                    .child("like")
-//                                                    .setValue(postData.getLike() + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                        @Override
-//                                                        public void onSuccess(Void unused) {
-//                                                            holder.postDashboardBinding.like.setColorFilter(R.color.orange);
-//                                                        }
-//                                                    });
-//                                        }
-//                                    });
-//
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//            }
-//        });
+        holder.postDashboardBinding.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // if like clicked
+                FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId()).child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            // already liked now remove like
+                            holder.postDashboardBinding.like.setColorFilter(R.color.black);
+                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
+                                    .child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId()).removeValue();
+                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
+                                    .child("likeCount").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            int likeCount =0;
+                                            if(snapshot.exists()){
+                                                likeCount = snapshot.getValue(Integer.class);
+                                            }
+                                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
+                                                    .child("likeCount").setValue(likeCount -1);
+                                            holder.postDashboardBinding.likeCount.setText(likeCount - 1  + "");
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+                        }else{
+                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
+                                    .child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId())
+                                    .setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            FirebaseDatabase.getInstance().getReference()
+                                                    .child("Posts")
+                                                    .child(postData.getPostId())
+                                                    .child("likeCount")
+                                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            int likeCount = 0;
+                                                            if(snapshot.exists()){
+                                                                likeCount = snapshot.getValue(Integer.class);
+                                                            }
+                                                            FirebaseDatabase.getInstance().getReference()
+                                                                    .child("Posts")
+                                                                    .child(postData.getPostId())
+                                                                    .child("likeCount")
+                                                                    .setValue(likeCount+1);
+                                                            holder.postDashboardBinding.likeCount.setText(likeCount + 1 + "");
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
+                                                    }
+
+                                    });
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
 
         holder.postDashboardBinding.comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment fragment = new AddCommentFragment();
+                Fragment fragment = new ShowCommentFragment();
                 FragmentTransaction fragmentTransaction= activity.getSupportFragmentManager().beginTransaction();
                 // send posted by in bundle
                 Bundle bundle = new Bundle();
-                bundle.putString("PostedBy", postData.getPostedBy());
                 bundle.putString("PostId", postData.getPostId());
 
                 fragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment,fragment).commit();
+                fragmentTransaction.replace(R.id.fragment,fragment).addToBackStack(null).commit();
             }
         });
 
