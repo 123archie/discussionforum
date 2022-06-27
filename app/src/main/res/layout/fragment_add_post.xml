@@ -90,7 +90,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/shipper_field"
+            android:id="@+id/askQuestionTextField"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:gravity="top"
@@ -102,6 +102,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
+        android:id="@+id/imageQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"

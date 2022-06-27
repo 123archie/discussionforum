@@ -35,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Date;
 
 public class AddCommentFragment extends Fragment {
+
     ImageView profilePic,imageAnswer,addAnswerPhoto;
     TextView commentedByName;
     TextInputEditText answerText;
