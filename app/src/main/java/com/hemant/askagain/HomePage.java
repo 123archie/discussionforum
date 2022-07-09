@@ -1,11 +1,7 @@
 package com.hemant.askagain;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,29 +31,16 @@ public class HomePage extends AppCompatActivity {
 
         binding = ActivityHomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new DashboardFragment());
         getUserInfo();
+        replaceFragment(new DashboardFragment());
 
-        binding.fabAddPostBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.fabAddPostBtn.setVisibility(GONE);
-                sendUserInfoReplaceFragment(new AddPostFragment());
-            }
-        });
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.dashboard:
-                    if(binding.fabAddPostBtn.getVisibility() == GONE){
-                        binding.fabAddPostBtn.setVisibility(View.VISIBLE);
-                    }
                     replaceFragment(new DashboardFragment());
                     break;
                 case R.id.my_profile:
-                    if(binding.fabAddPostBtn.getVisibility() == VISIBLE){
-                        binding.fabAddPostBtn.setVisibility(GONE);
-                    }
                     sendUserInfoReplaceFragment(new MyProfileFragment());
                     break;
             }
