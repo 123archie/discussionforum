@@ -29,8 +29,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
-
-
 public class AddPostFragment extends Fragment {
 
     ImageView profilePic,imageQuestion,addQuestionPhoto;
@@ -136,18 +134,12 @@ public class AddPostFragment extends Fragment {
             });
         }
     }
-    
-
 
     private void setPostPhoto(Uri uri) {
         Log.d("TAG", "setCommentPhoto: " + uri.toString());
         postModel.setImageQuestion(uri.toString());
         Toast.makeText(getView().getContext(), "Image is all set", Toast.LENGTH_LONG ).show();
-
     }
-
-    
-
     private void setProfileName() {
         acct = GoogleSignIn.getLastSignedInAccount(getContext());
         postedByName.setText(acct.getDisplayName());
@@ -157,10 +149,6 @@ public class AddPostFragment extends Fragment {
                 .load(acct.getPhotoUrl())
                 .into(profilePic);
     }
-
-
-
-
     private void initViews(View view) {
         profilePic = view.findViewById(R.id.profilePic);
         imageQuestion = view.findViewById(R.id.imageQuestion);
