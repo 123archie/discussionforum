@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures{
+        viewBinding true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -40,6 +44,11 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-core:21.0.0'
     implementation 'com.google.firebase:firebase-database:20.0.5'
+
+    // Glide dependencies for profile pic
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     testImplementation 'junit:junit:4.13.2'

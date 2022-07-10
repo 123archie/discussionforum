@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -29,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private SignInButton signInBtn;
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
-    private User user;
+
+    private UserModel userModel;
+    boolean alreadyExist = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPreviousSignIn() {
-        // Check for any previous signIn User after launch
+        // Check for any previous signIn UserModel after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
-           openMyProfile();
+
+            openHomePage();
+
         }
     }
 
@@ -75,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            getProfileInfo();
+            if(dataExist()){
+                getProfileInfo();
+            }
 
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
@@ -85,36 +90,47 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private boolean dataExist() {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        FirebaseDatabase.getInstance().getReference()
+                .child("User")
+                .child(acct.getId())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            alreadyExist = false;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+        return alreadyExist;
+    }
+
     private void getProfileInfo() {
-        // Getting the profile info of signed in user
+        // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
+            userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
 
-            DatabaseReference databaseReference;
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(personId);
-            Log.d("TAG", "getProfileInfo: "+ databaseReference);
-
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance()
+                    .getReference()
+                    .child("User")
+                    .child(acct.getId())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        Log.d("TAG", "onDataChange: user already exist");
-                    }else{
-                        Log.d("TAG", "onDataChange: " + personPhoto.toString());
-                        if(personPhoto.toString() == null){
-                            user.setName(personName);
-                        }else{
-                            user = new User(personName,personPhoto.toString());
-                        }
-                        FirebaseDatabase.getInstance().getReference().child("User").child(personId).setValue(user);
+
+                    if(!snapshot.exists()){
+                        Log.d("TAG", "onDataChange: new userModel register");
+                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).setValue(userModel);
                     }
-                    openAddComment();
+                    openHomePage();
+
                 }
 
                 @Override
@@ -125,17 +141,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openAddComment(){
-        Intent intent=new Intent(MainActivity.this, CommentActivity.class);
+
+
+    private void openHomePage() {
+
+        // Opening the next activity
+        Intent intent =new Intent(this, HomePage.class);
         startActivity(intent);
         finish();
     }
 
-    private void openMyProfile() {
-        // Opening the next activity
-        startActivity(new Intent(this, MyProfile.class));
-        finish();
-    }
 
     private void googleSignInConfigure() {
         // Building google SignInOptions and SignInClient
