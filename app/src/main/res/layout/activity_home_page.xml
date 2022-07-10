@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
+    android:background="@color/brown"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -19,11 +20,14 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
+        android:background="@color/brown"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@color/light_white"
+        app:itemIconSize="42sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
