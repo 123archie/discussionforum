@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -50,6 +51,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         // binding question
         holder.postDashboardBinding.textQuestion.setText(postData.getTextQuestion());
         Log.d("TAG",postData.getPostedBy());
+        Log.d("TAG", "onBindViewHolder: " + postData.getImageQuestion());
 
         FirebaseDatabase.getInstance().getReference()
                 .child("User")
@@ -82,10 +84,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         FirebaseDatabase.getInstance().getReference().child("Posts").child(GoogleSignIn.getLastSignedInAccount(context).getId());
 
         if(postData.getImageQuestion() != null){
+            Log.d("TAG", "onBindViewHolder: " + postData.getImageQuestion());
             Glide.with(context)
                     .load(postData.getImageQuestion())
                     .into(holder.postDashboardBinding.imageQuestion);
             holder.postDashboardBinding.imageQuestion.setVisibility(View.VISIBLE);
+        }else{
+            holder.postDashboardBinding.imageQuestion.setVisibility(View.GONE);
         }
 
         holder.postDashboardBinding.like.setOnClickListener(new View.OnClickListener() {
