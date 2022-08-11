@@ -54,13 +54,24 @@ public class HomePage extends AppCompatActivity {
         Log.d("TAG", "sendUserInfoReplaceFragment: " + userModel);
 
         Bundle bundle = new Bundle();
-        bundle.putString("Name", userModel.getName() );
-        bundle.putString("Email", userModel.getEmail());
-        bundle.putString("ProfilePic", userModel.getProfilePic());
-        bundle.putString("Contact", userModel.getContactNumber());
-        bundle.putString("Gender", userModel.getGender());
-        bundle.putString("Profession", userModel.getProfession());
-
+        if(userModel.getName()!=null){
+            bundle.putString("Name", userModel.getName() );
+        }
+        if(userModel.getEmail()!=null){
+            bundle.putString("Email", userModel.getEmail());
+        }
+        if(userModel.getProfilePic()!=null){
+            bundle.putString("ProfilePic", userModel.getProfilePic());
+        }
+        if(userModel.getContactNumber()!=null){
+            bundle.putString("Contact", userModel.getContactNumber());
+        }
+        if(userModel.getGender()!=null){
+            bundle.putString("Gender", userModel.getGender());
+        }
+        if(userModel.getProfession()!=null){
+            bundle.putString("Profession", userModel.getProfession());
+        }
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment,fragment).addToBackStack(null).commit();
     }

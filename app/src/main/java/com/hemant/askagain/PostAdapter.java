@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
-    Context context;
+    final Context context;
     ArrayList<PostModel> postList;
 
     public PostAdapter(ArrayList<PostModel> postList,Context context ){
