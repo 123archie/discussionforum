@@ -9,71 +9,79 @@
     tools:context=".AddPostFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayoutPersonInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayoutPersonInfo"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07"
-        android:weightSum="3">
+        app:layout_constraintVertical_bias="0.039">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_weight="0"
             android:elevation="12dp"
-            android:id="@+id/cardView"
-            app:cardCornerRadius="40dp"
-            android:layout_weight="0">
+            app:cardCornerRadius="40dp">
 
             <ImageView
-                android:layout_height="80dp"
-                android:layout_width="match_parent"
                 android:id="@+id/profilePic"
-                android:src="@drawable/siu"
-                android:scaleType="centerCrop"/>
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/siu" />
 
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
             android:layout_marginStart="10dp"
-            android:layout_weight="2.8">
+            android:layout_weight="2.8"
+            android:orientation="vertical"
+            android:paddingTop="12dp">
 
             <TextView
                 android:id="@+id/personName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:fontFamily="@font/spartan"
                 android:text="NAME"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_weight="0.3"
-                android:textScaleX="1.2" />
+                android:textScaleX="1.2"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/personProfession"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:fontFamily="@font/spartan"
                 android:text="Profession"
                 android:textColor="@color/black"
-                android:layout_weight="0.7"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addPostBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Post"
-            android:id="@+id/addPostBtn"
-            android:background="@color/blue"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_weight="0" />
+            android:layout_weight="0"
+            android:background="@color/blue"
+            android:backgroundTint="@color/teal_700"
+            android:fontFamily="@font/spartan"
+            android:padding="10sp"
+            android:text="+Add Post"
+            android:textAllCaps="false"
+            android:textColor="@color/white_one"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -82,21 +90,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="What is your question"
+        android:layout_marginTop="0.1sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutPersonInfo"
         app:layout_constraintVertical_bias="0.07"
+        app:boxStrokeColor="@color/white_one"
+        app:hintTextColor="@color/white_one"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/askQuestionTextField"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:fontFamily="@font/spartan"
             android:gravity="top"
             android:inputType="textMultiLine"
             android:overScrollMode="always"
-            android:padding="15dp"
+            android:paddingStart="15dp"
+            android:textColor="@color/white_one"
+            android:textSize="18sp"
+
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -109,7 +124,8 @@
         app:layout_constraintTop_toBottomOf="@+id/otfAskYourQuestion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10sp"/>
 
     <ImageView
         android:id="@+id/addQuestionPhoto"
@@ -121,7 +137,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.85"
-        app:layout_constraintHorizontal_bias="1"/>
+        app:layout_constraintHorizontal_bias="1"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

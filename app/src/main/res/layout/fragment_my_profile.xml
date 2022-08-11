@@ -43,9 +43,10 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="NAME"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/spartan"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/personProfession"
@@ -53,6 +54,8 @@
             android:layout_height="wrap_content"
             android:text="Profession"
             android:textColor="@color/black"
+            android:fontFamily="@font/spartan"
+            android:textSize="18sp"
             />
 
     </LinearLayout>
@@ -78,6 +81,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_baseline_email"
+            android:fontFamily="@font/spartan"
             />
         <TextView
             android:id="@+id/personEmail"
@@ -86,7 +90,8 @@
             android:text="someone@gmail.com"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/spartan"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -103,7 +108,8 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_baseline_phone"
-            android:layout_marginTop="20sp"/>
+            android:layout_marginTop="20sp"
+            android:fontFamily="@font/spartan"/>
         <TextView
             android:id="@+id/personContact"
             android:layout_width="wrap_content"
@@ -111,7 +117,8 @@
             android:text="99999XXXXX"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginBottom="20sp"/>
+            android:layout_marginBottom="20sp"
+            android:fontFamily="@font/spartan"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -126,7 +133,8 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="20sp"/>
+            android:layout_marginTop="20sp"
+            android:fontFamily="@font/spartan"/>
         <TextView
             android:id="@+id/personGender"
             android:layout_width="wrap_content"
@@ -134,7 +142,8 @@
             android:text="Male"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginBottom="20sp"/>
+            android:layout_marginBottom="20sp"
+            android:fontFamily="@font/spartan"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -149,7 +158,8 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="20sp"/>
+            android:layout_marginTop="20sp"
+            android:fontFamily="@font/spartan"/>
         <TextView
             android:id="@+id/personProfession2"
             android:layout_width="wrap_content"
@@ -157,7 +167,8 @@
             android:text="Software developer"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginBottom="20sp"/>
+            android:layout_marginBottom="20sp"
+            android:fontFamily="@font/spartan"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -183,16 +194,21 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange2"
             android:text="Edit Profile"
-            android:textColor="@color/white_two"/>
+            android:textColor="@color/white_two"
+            android:fontFamily="@font/spartan"/>
 
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logOutBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="142dp"
             android:layout_height="wrap_content"
-            android:text="LogOUT"
+            android:layout_marginStart="80dp"
+            android:backgroundTint="@color/red"
+            android:text="Logout"
+            android:textColor="@color/white_two"
             app:icon="@drawable/ic_baseline_logout"
-            android:layout_marginStart="100dp"/>
+            app:iconTint="@color/white_two"
+            android:fontFamily="@font/spartan"/>
 
     </LinearLayout>
 
