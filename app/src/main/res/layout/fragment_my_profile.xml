@@ -16,21 +16,24 @@
         android:gravity="center"
         android:orientation="vertical"
         android:background="@color/material_dynamic_primary95"
-        android:paddingBottom="20dp">
+        android:paddingTop="15sp"
+        android:paddingBottom="15sp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:elevation="12dp"
             android:id="@+id/cardView"
-            app:cardCornerRadius="40dp">
+            app:cardCornerRadius="40dp"
+            >
 
                 <ImageView
                     android:id="@+id/profilePic"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:src="@drawable/ic_baseline_person"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    />
 
         </androidx.cardview.widget.CardView>
 
@@ -49,7 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Profession"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            />
 
     </LinearLayout>
 
@@ -73,7 +77,8 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            app:drawableStartCompat="@drawable/ic_baseline_email" />
+            app:drawableStartCompat="@drawable/ic_baseline_email"
+            />
         <TextView
             android:id="@+id/personEmail"
             android:layout_width="wrap_content"
@@ -87,7 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dividerInsetStart="16dp"
-            app:dividerInsetEnd="16dp"/>
+            app:dividerInsetEnd="16dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -96,7 +102,8 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            app:drawableStartCompat="@drawable/ic_baseline_phone" />
+            app:drawableStartCompat="@drawable/ic_baseline_phone"
+            android:layout_marginTop="20sp"/>
         <TextView
             android:id="@+id/personContact"
             android:layout_width="wrap_content"
@@ -104,7 +111,7 @@
             android:text="99999XXXXX"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20sp"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -118,7 +125,8 @@
             android:text="Gender"
             android:textSize="16sp"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginTop="20sp"/>
         <TextView
             android:id="@+id/personGender"
             android:layout_width="wrap_content"
@@ -126,7 +134,7 @@
             android:text="Male"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20sp"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -140,7 +148,8 @@
             android:text="Profession"
             android:textSize="16sp"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginTop="20sp"/>
         <TextView
             android:id="@+id/personProfession2"
             android:layout_width="wrap_content"
@@ -148,7 +157,7 @@
             android:text="Software developer"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20sp"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -172,7 +181,9 @@
             android:id="@+id/editProfileBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit Profile" />
+            android:backgroundTint="@color/orange2"
+            android:text="Edit Profile"
+            android:textColor="@color/white_two"/>
 
 
         <com.google.android.material.button.MaterialButton

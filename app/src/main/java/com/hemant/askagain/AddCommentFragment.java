@@ -104,36 +104,29 @@ public class AddCommentFragment extends Fragment {
                                         });
                             }
                         });
-
             }
         });
-
         addAnswerPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGallery();
             }
         });
-
         return view;
     }
-
     private void openDashBoard() {
-
         Fragment fragment = new DashboardFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment,fragment);
         fragmentTransaction.commit();
     }
-
     private void openGallery() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent,11);
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

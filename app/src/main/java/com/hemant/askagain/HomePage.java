@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hemant.askagain.databinding.ActivityHomePageBinding;
 
+
 public class HomePage extends AppCompatActivity {
 
     ActivityHomePageBinding binding;
@@ -53,7 +54,9 @@ public class HomePage extends AppCompatActivity {
         Log.d("TAG", "sendUserInfoReplaceFragment: " + userModel);
 
         Bundle bundle = new Bundle();
+        Log.d("TAG","name: "+userModel.getName());
         bundle.putString("Name", userModel.getName() );
+
         bundle.putString("Email", userModel.getEmail());
         bundle.putString("ProfilePic", userModel.getProfilePic());
         bundle.putString("Contact", userModel.getContactNumber());
