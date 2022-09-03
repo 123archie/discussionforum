@@ -164,4 +164,4 @@ public class MainActivity extends AppCompatActivity {
         // Initializing the Views
         signInBtn = findViewById(R.id.signInBtn);
     }
-}
+    }
