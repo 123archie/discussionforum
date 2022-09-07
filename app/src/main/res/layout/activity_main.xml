@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.gms.common.SignInButton
+        <com.google.android.gms.common.SignInButton
         android:id="@+id/signInBtn"
         android:layout_width="389dp"
         android:layout_height="65dp"
@@ -47,5 +47,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview1"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.45"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

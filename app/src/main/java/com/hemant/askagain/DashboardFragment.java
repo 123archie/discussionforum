@@ -2,9 +2,11 @@ package com.hemant.askagain;
 
 import static android.view.View.GONE;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,7 +38,7 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         initViews(view);
-        getAllPost();
+
 
         if(fabAddPostBtn.getVisibility()==GONE){
             fabAddPostBtn.setVisibility(View.VISIBLE);
@@ -68,8 +70,15 @@ public class DashboardFragment extends Fragment {
     }
 
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        getAllPost();
+    }
+
     private void getAllPost() {
-        PostAdapter postAdapter = new PostAdapter(postList,getContext());
+        PostAdapter postAdapter = new PostAdapter(postList, getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(postAdapter);
 
