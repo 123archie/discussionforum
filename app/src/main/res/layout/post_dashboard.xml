@@ -23,40 +23,34 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        android:layout_marginTop="4dp"
-        app:dividerInsetStart="40dp"
-        app:dividerInsetEnd="40dp"/>
+
 
     <TextView
         android:id="@+id/postedByName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/spartan"/>
 
     <TextView
         android:id="@+id/postedTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Time"
-        android:textSize="10sp"
+        android:textSize="13sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintTop_toBottomOf="@+id/postedByName"/>
+        app:layout_constraintTop_toBottomOf="@+id/postedByName"
+        android:fontFamily="@font/spartan"/>
 
 
 
@@ -77,13 +71,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Question Asked for in words?"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView"
-            app:layout_constraintVertical_bias="0.024"/>
+            app:layout_constraintVertical_bias="0.024"
+            android:fontFamily="@font/spartan"
+            android:layout_marginTop="15sp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10sp"
+            />
 
         <ImageView
             android:id="@+id/imageQuestion"
@@ -93,7 +93,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textQuestion"
-            app:layout_constraintVertical_bias="0.04"/>
+            app:layout_constraintVertical_bias="0.04"
+            android:layout_marginTop=""
+            />
 
     </LinearLayout>
 
@@ -106,14 +108,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postDescription"
         app:layout_constraintVertical_bias="0.03"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="15sp">
 
         <ImageView
             android:id="@+id/like"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_weight="0.8"
-            android:src="@drawable/ic_baseline_thumb_up" />
+            android:src="@drawable/ic_baseline_thumb_up"
+            />
         <TextView
             android:id="@+id/likeCount"
             android:layout_width="wrap_content"
@@ -146,8 +151,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutLikeComment"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="15sp"
         app:dividerInsetEnd="10dp"
-        app:dividerInsetStart="10dp"/>
+        app:dividerInsetStart="10dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
