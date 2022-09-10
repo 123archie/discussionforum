@@ -29,7 +29,7 @@
         android:fontFamily="@font/spartan"
         android:gravity="center"
         android:text="@string/welcome"
-        android:textColor="@color/blue_diff"
+        android:textColor="@color/blue_shade"
         android:textSize="42sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

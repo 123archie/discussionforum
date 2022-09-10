@@ -75,7 +75,7 @@
             android:layout_gravity="bottom"
             android:layout_weight="0"
             android:background="@drawable/mybutton"
-            android:backgroundTint="@color/blue_diff"
+            android:backgroundTint="@color/blue_shade"
             android:fontFamily="@font/spartan"
             android:padding="10sp"
             android:text="+Add Post"
