@@ -15,24 +15,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/commentBtn"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="20sp"
+            />
 
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/commentBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/teal_700"
-            android:text="@string/addcomments"
-            android:textSize="35dp"
-            android:textAllCaps="false"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5sp"
+            android:background="@drawable/mybutton"
+            android:backgroundTint="@color/blue_diff"
             android:fontFamily="@font/spartan"
-            android:textColor="@color/white"
+            android:padding="10sp"
+            android:text="+Add Comments"
+            android:textAllCaps="false"
+            android:textColor="@color/white_two"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.911"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1"/>
-
+            app:layout_constraintVertical_bias="0.991" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
