@@ -1,13 +1,13 @@
 package com.hemant.askagain;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+
 
 import android.content.Intent;
+import android.graphics.fonts.FontFamily;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sarnava.textwriter.TextWriter;
 
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
@@ -31,15 +32,34 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
     private UserModel userModel;
     boolean alreadyExist = true;
+    private TextWriter textWriter;
+    private TextWriter textwriter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initViews();
+        textWriter
+                .setText("WELCOME")
+                 .setColor(R.color.blue_shade)
+                .setConfig(TextWriter.Configuration.INTERMEDIATE)
+                        .setSizeFactor(32f)
+                                .setDelay(30)
+                .setListener(new TextWriter.Listener() {
+                    @Override
+                    public void WritingFinished() {
+                        textwriter
+                                .setText("LOGIN HERE")
+                                .setColor(R.color.blue_shade)
+                                .setConfig(TextWriter.Configuration.INTERMEDIATE)
+                                .setSizeFactor(32f)
+                                .setDelay(30)
+                                .startAnimation();
+                    }
+                })
+        .startAnimation();
         googleSignInConfigure();
         checkPreviousSignIn();
-
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +182,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         // Initializing the Views
+        textWriter=findViewById(R.id.textwriter);
         signInBtn = findViewById(R.id.signInBtn);
+        textwriter=findViewById(R.id.text);
     }
     }

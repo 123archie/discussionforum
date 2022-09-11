@@ -28,19 +28,21 @@ public class HomePage extends AppCompatActivity {
         replaceFragment(new DashboardFragment());
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
+
                 case R.id.dashboard:
                     replaceFragment(new DashboardFragment());
                     break;
                 case R.id.my_profile:
+                    Log.d("TAG", "item id: "+item.getItemId());
                     sendUserInfoReplaceFragment(new MyProfileFragment());
                     break;
-            }
+             }
             return true;
         });
     }
     private void sendUserInfoReplaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
-//        userModel=new UserModel();
+        Log.d("TAG","fragmentTransaction: "+fragmentTransaction);
         Log.d("TAG", "sendUserInfoReplaceFragment: " + userModel);
         Log.d("TAG","name: "+userModel.getName());
         Bundle bundle = new Bundle();
