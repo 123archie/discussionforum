@@ -1,12 +1,11 @@
 package com.hemant.askagain;
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.fonts.FontFamily;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sarnava.textwriter.TextWriter;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
     private SignInButton signInBtn;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         textWriter
                 .setText("WELCOME")
-                 .setColor(R.color.blue_shade)
+                 .setColor(Color.rgb(51, 153, 255))
                 .setConfig(TextWriter.Configuration.INTERMEDIATE)
                         .setSizeFactor(32f)
                                 .setDelay(30)
@@ -49,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void WritingFinished() {
                         textwriter
-                                .setText("LOGIN HERE")
-                                .setColor(R.color.blue_shade)
+                                .setText("LOGIN  HERE")
+                                .setColor(Color.rgb(51, 153, 255))
                                 .setConfig(TextWriter.Configuration.INTERMEDIATE)
                                 .setSizeFactor(32f)
                                 .setDelay(30)
@@ -134,13 +135,14 @@ public class MainActivity extends AppCompatActivity {
     private void getProfileInfo() {
         // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        Log.d("TAG","acct: "+acct);
         if (acct != null) {
-            userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
+            userModel = new UserModel(acct.getDisplayName(),acct..toString(),acct.getEmail());
 
             FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")
-                    .child(acct.getId())
+                    .child(Objects.requireNonNull(acct.getId()))
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
