@@ -42,9 +42,6 @@ public class HomePage extends AppCompatActivity {
     }
     private void sendUserInfoReplaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
-        Log.d("TAG","fragmentTransaction: "+fragmentTransaction);
-        Log.d("TAG", "sendUserInfoReplaceFragment: " + userModel);
-        Log.d("TAG","name: "+userModel.getName());
         Bundle bundle = new Bundle();
         if(userModel.getName()!=null){
             Log.d("TAG","Name: "+userModel.getName());

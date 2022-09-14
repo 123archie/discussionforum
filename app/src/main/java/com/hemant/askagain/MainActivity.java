@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                  .setColor(Color.rgb(51, 153, 255))
                 .setConfig(TextWriter.Configuration.INTERMEDIATE)
                         .setSizeFactor(32f)
-                                .setDelay(30)
+                                .setDelay(40)
                 .setListener(new TextWriter.Listener() {
                     @Override
                     public void WritingFinished() {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setColor(Color.rgb(51, 153, 255))
                                 .setConfig(TextWriter.Configuration.INTERMEDIATE)
                                 .setSizeFactor(32f)
-                                .setDelay(30)
+                                .setDelay(40)
                                 .startAnimation();
                     }
                 })
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
                 signIn();
             }
         });
@@ -137,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         Log.d("TAG","acct: "+acct);
         if (acct != null) {
-            userModel = new UserModel(acct.getDisplayName(),acct..toString(),acct.getEmail());
 
+            userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
             FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")

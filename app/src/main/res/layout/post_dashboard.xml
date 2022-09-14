@@ -115,9 +115,10 @@
         <ImageView
             android:id="@+id/like"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_weight="0.8"
             android:src="@drawable/ic_baseline_thumb_up"
+
             />
         <TextView
             android:id="@+id/likeCount"
@@ -131,7 +132,7 @@
         <ImageView
             android:id="@+id/comments"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_weight="0.8"
             android:src="@drawable/ic_baseline_comment" />
 

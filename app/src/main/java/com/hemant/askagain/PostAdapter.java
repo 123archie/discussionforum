@@ -2,12 +2,14 @@ package com.hemant.askagain;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +29,7 @@ import com.hemant.askagain.databinding.PostDashboardBinding;
 import java.util.ArrayList;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-
+int i=1;
     final Context context;
     ArrayList<PostModel> postList;
 
@@ -96,13 +98,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.postDashboardBinding.like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 // if like clicked
+                if(i==1){
+                holder.postDashboardBinding.like.setImageResource(R.drawable.thumb);
+                i=0;}
                 FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId()).child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
                             // already liked now remove like
-                            holder.postDashboardBinding.like.setColorFilter(R.color.black);
+//                            if(i==0) {
+//                                holder.postDashboardBinding.like.setImageResource(R.drawable.ic_baseline_thumb_up);
+//                                holder.postDashboardBinding.like.setColorFilter(R.color.black);
+////
+//                                }
                             FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
                                     .child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId()).removeValue();
                             FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
