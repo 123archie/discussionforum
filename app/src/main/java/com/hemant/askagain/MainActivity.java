@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
     private UserModel userModel;
-    boolean alreadyExist = true;
+    boolean alreadyExist = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
+                            alreadyExist = true;
+                        }else{
                             alreadyExist = false;
                         }
                     }
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+        Log.d("TAG", "dataExist: " + alreadyExist);
         return alreadyExist;
     }
 

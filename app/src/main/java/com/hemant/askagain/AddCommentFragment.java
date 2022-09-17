@@ -74,34 +74,8 @@ public class AddCommentFragment extends Fragment {
                         .setValue(commentModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                FirebaseDatabase.getInstance().getReference()
-                                        .child("Posts")
-                                        .child(PostId)
-                                        .child("commentCount").addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                int commentCount = 0;
-                                                if(snapshot.exists()){
-                                                    commentCount = snapshot.getValue(Integer.class);
-                                                }
-                                                FirebaseDatabase.getInstance().getReference()
-                                                        .child("Posts")
-                                                        .child(PostId)
-                                                        .child("commentCount")
-                                                        .setValue(commentCount +1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void unused) {
-                                                                Log.d("TAG", "Succesful added");
-                                                                openDashBoard();
-                                                            }
-                                                        });
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                Log.d("TAG", "Successfully added");
+                                openDashBoard();
                             }
                         });
 

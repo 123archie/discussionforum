@@ -90,6 +90,7 @@ public class DashboardFragment extends Fragment {
                         PostModel post = ds.getValue(PostModel.class);
                         post.setPostId(ds.getKey());
                         postList.add(post);
+                        Log.d("TAG", "onDataChange: " + postList.size());
                     }
                     postAdapter.notifyItemInserted(1);
                 }
