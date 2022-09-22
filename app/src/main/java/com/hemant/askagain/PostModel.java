@@ -6,24 +6,7 @@ public class PostModel {
     String postedTime;
     String textQuestion;
     String imageQuestion;
-    int commentCount;
-    int likesCount;
 
-    public int getLikeCount() {
-        return likesCount;
-    }
-
-    public void setLikeCount(int likesCount) {
-        this.likesCount = likesCount;
-    }
-
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
-    }
 
     public String getPostId() {
         return postId;

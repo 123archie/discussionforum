@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
     private UserModel userModel;
-    boolean alreadyExist = true;
-    private TextWriter textWriter;
-    private TextWriter textwriter;
+    TextWriter textWriter;
+    TextWriter textwriter;
+    boolean alreadyExist = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
+                            alreadyExist = true;
+                        }else{
                             alreadyExist = false;
                         }
                     }
@@ -129,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+        Log.d("TAG", "dataExist: " + alreadyExist);
         return alreadyExist;
     }
 
