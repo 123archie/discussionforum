@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     TextWriter textWriter;
     TextWriter textwriter;
     boolean alreadyExist = false;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
         .startAnimation();
+        Log.d("TAG", "signing in: Signing in sucessfull");
         googleSignInConfigure();
         checkPreviousSignIn();
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 signIn();
             }
         });
@@ -77,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         // Check for any previous signIn UserModel after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
-
             openHomePage();
 
         }

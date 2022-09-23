@@ -46,7 +46,7 @@ dependencies {
     // Glide dependencies for profile pic
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     implementation 'com.google.firebase:firebase-storage:20.0.2'
-    implementation 'androidx.annotation:annotation:1.4.0'
+    implementation 'androidx.annotation:annotation:1.5.0'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:20.3.0'
     implementation 'com.github.sarnavakonar:TextWriter:v1.0'

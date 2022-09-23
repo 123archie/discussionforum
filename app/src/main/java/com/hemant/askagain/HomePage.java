@@ -43,6 +43,7 @@ public class HomePage extends AppCompatActivity {
     private void sendUserInfoReplaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
+        userModel=new UserModel();
         if(userModel.getName()!=null){
             Log.d("TAG","Name: "+userModel.getName());
             bundle.putString("Name", userModel.getName() );
