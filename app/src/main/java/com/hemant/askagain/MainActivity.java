@@ -2,14 +2,12 @@ package com.hemant.askagain;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.fonts.FontFamily;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,18 +21,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sarnava.textwriter.TextWriter;
-
 import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
-    private SignInButton signInBtn;
+    private Button signInBtn;
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
     private UserModel userModel;
-    TextWriter textWriter;
-    TextWriter textwriter;
-    boolean alreadyExist = false;
+    TextWriter textWriter, textwriter;
+    boolean alreadyExist=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +54,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
         .startAnimation();
-        Log.d("TAG", "signing in: Signing in sucessfull");
+        Log.d("TAG", "signing in: Signing in successful");
         googleSignInConfigure();
         checkPreviousSignIn();
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("TAG", "signed in successfully");
                 signIn();
             }
         });
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void signIn() {
         Intent intent = googleSignInClient.getSignInIntent();
         startActivityForResult(intent,RC_SIGN_IN);
-   }
+           }
 
 
     @Override
@@ -139,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         Log.d("TAG","acct: "+acct);
         if (acct != null) {
-
+            if(acct.getPhotoUrl()!=null)
             userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
-            FirebaseDatabase.getInstance()
+              FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")
                     .child(Objects.requireNonNull(acct.getId()))

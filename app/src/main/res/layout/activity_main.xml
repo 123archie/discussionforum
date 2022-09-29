@@ -38,10 +38,10 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"/>-->
 
-    <com.google.android.gms.common.SignInButton
+    <Button
         android:id="@+id/signInBtn"
         android:layout_width="389dp"
-        android:layout_height="65dp"
+        android:layout_height="75dp"
         android:layout_marginTop="9sp"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
@@ -50,12 +50,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintVertical_bias="0.21">
-
-
-    </com.google.android.gms.common.SignInButton>
+        app:layout_constraintVertical_bias="0.21"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/white_two"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        >
+      </Button>
 
     <com.sarnava.textwriter.TextWriter
         android:id="@+id/textwriter"
