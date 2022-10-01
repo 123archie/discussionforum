@@ -40,11 +40,11 @@
 
     <Button
         android:id="@+id/signInBtn"
-        android:layout_width="389dp"
+        android:layout_width="380dp"
         android:layout_height="75dp"
         android:layout_marginTop="9sp"
         android:layout_marginStart="10sp"
-        android:layout_marginEnd="10sp"
+        android:layout_marginEnd="15sp"
         android:text="@string/common_signin_button_text_long"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,10 +56,12 @@
         android:backgroundTint="@color/white_two"
         android:textSize="16sp"
         android:textColor="@color/black"
-        >
-      </Button>
+        android:drawableLeft="@drawable/googleg_standard_color_18"
 
-    <com.sarnava.textwriter.TextWriter
+        >
+
+ </Button>
+   <com.sarnava.textwriter.TextWriter
         android:id="@+id/textwriter"
         android:layout_width="match_parent"
         android:layout_height="65sp"
@@ -75,7 +77,7 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="65sp"
-        android:layout_marginTop="485sp"
+        android:layout_marginTop="475sp"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
         tools:layout_editor_absoluteX="0dp"
@@ -84,5 +86,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.072"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.845"-->
+<!--        htext:srcCompat="@drawable/google" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

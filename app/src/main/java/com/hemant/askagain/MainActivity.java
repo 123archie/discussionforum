@@ -1,12 +1,17 @@
 package com.hemant.askagain;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private UserModel userModel;
     TextWriter textWriter, textwriter;
     boolean alreadyExist=true;
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +61,14 @@ public class MainActivity extends AppCompatActivity {
                 })
         .startAnimation();
         Log.d("TAG", "signing in: Signing in successful");
-        googleSignInConfigure();
+
+         googleSignInConfigure();
         checkPreviousSignIn();
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("TAG", "signed in successfully");
+
                 signIn();
             }
         });
@@ -136,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TAG","acct: "+acct);
         if (acct != null) {
             if(acct.getPhotoUrl()!=null)
-            userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
+                userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
               FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")
