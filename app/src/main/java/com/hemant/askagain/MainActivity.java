@@ -1,24 +1,21 @@
 package com.hemant.askagain;
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private UserModel userModel;
     TextWriter textWriter, textwriter;
     boolean alreadyExist=true;
+    ConstraintLayout constraintLayout;
 //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +66,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("TAG", "signed in successfully");
-
-                signIn();
+               signInBtn.setBackgroundColor(Color.rgb(51, 153, 255));
+               signInBtn.setTextColor(Color.rgb(251, 250, 250));
+               signIn();
+            }
+        });
+        constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signInBtn.setBackgroundColor(Color.rgb(251, 250, 250));
+                signInBtn.setTextColor(Color.rgb(0,0,0));
             }
         });
 
-    }
+         }
 
     private void checkPreviousSignIn() {
         // Check for any previous signIn UserModel after launch
@@ -144,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TAG","acct: "+acct);
         if (acct != null) {
             if(acct.getPhotoUrl()!=null)
-                userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
+                    userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
               FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")
@@ -193,5 +199,6 @@ public class MainActivity extends AppCompatActivity {
         textWriter=findViewById(R.id.textwriter);
         signInBtn = findViewById(R.id.signInBtn);
         textwriter=findViewById(R.id.text);
+        constraintLayout=findViewById(R.id.constraint);
     }
     }
