@@ -1,5 +1,4 @@
 package com.hemant.askagain;
-
 public class PostModel {
     String postId;
     String postedBy;

@@ -1,60 +1,47 @@
 package com.hemant.askagain;
-
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hemant.askagain.databinding.PostDashboardBinding;
-
-import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.Objects;
-
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 int i=1;
     final Context context;
     ArrayList<PostModel> postList;
     DatabaseReference databaseReference;
-
     public PostAdapter(ArrayList<PostModel> postList,Context context ){
         this.context =context;
         this.postList = postList;
     }
-
-
     @NonNull
     @Override
     public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.post_dashboard,parent,false);
         return new PostAdapter.ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
-
         PostModel postData = postList.get(position);
         // binding question
         holder.postDashboardBinding.textQuestion.setText(postData.getTextQuestion());
@@ -62,7 +49,6 @@ int i=1;
         Log.d("TAG", "onBindViewHolder: " + postData.getImageQuestion());
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
         databaseReference
                 .child("User")
                 .child(postData.getPostedBy()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -94,7 +80,6 @@ int i=1;
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         holder.postDashboardBinding.likeCount.setText(snapshot.getChildrenCount() + "");
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -131,6 +116,14 @@ int i=1;
             public void onClick(View view) {
 
                 // if like button clicked
+
+                Animation animation=new RotateAnimation(
+                        0,
+                        -20,
+                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                animation.setDuration(100);
+                holder.postDashboardBinding.like.startAnimation(animation);
+//                holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
                 databaseReference.child("Posts")
                         .child(postData.getPostId())
                         .child("likedBy")

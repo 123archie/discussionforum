@@ -118,8 +118,7 @@
             android:layout_height="25dp"
             android:layout_weight="0.8"
             android:src="@drawable/ic_baseline_thumb_up"
-
-            />
+                      />
         <TextView
             android:id="@+id/likeCount"
             android:layout_width="wrap_content"

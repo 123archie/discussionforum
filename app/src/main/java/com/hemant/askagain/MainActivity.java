@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     TextWriter textWriter, textwriter;
     boolean alreadyExist=true;
     ConstraintLayout constraintLayout;
-//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TAG","acct: "+acct);
         if (acct != null) {
             if(acct.getPhotoUrl()!=null)
-                    userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
+                userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
               FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")
