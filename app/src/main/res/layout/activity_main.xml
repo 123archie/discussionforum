@@ -10,40 +10,61 @@
     xmlns:htext="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
+
+
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitStart"
         android:src="@drawable/communication"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+<!--<LinearLayout-->
+<!--    android:id="@+id/linear_layout"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="0sp"-->
+<!--    app:layout_constraintTop_toBottomOf="@id/image"-->
+<!--  -->
+<!--    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--    app:layout_constraintRight_toRightOf="parent"-->
+<!--    android:orientation="vertical">-->
+
+
+    <com.sarnava.textwriter.TextWriter
+        android:id="@+id/textwriter"
+        android:layout_width="match_parent"
+        android:layout_height="65sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547" />
+
+    <com.sarnava.textwriter.TextWriter
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="65sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--    <TextView-->
-<!--        android:id="@+id/textview1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10sp"-->
-<!--        android:layout_marginTop="424dp"-->
-<!--        android:layout_marginEnd="10sp"-->
-<!--        android:background="@color/white_two"-->
-<!--        android:fontFamily="@font/spartan"-->
-<!--        android:gravity="center"-->
-<!--        android:text="@string/welcome"-->
-<!--        android:textColor="@color/blue_shade"-->
-<!--        android:textSize="42sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"/>-->
-
+        app:layout_constraintTop_toBottomOf="@+id/textwriter"
+        app:layout_constraintVertical_bias="0.13" />
     <Button
         android:id="@+id/signInBtn"
-        android:layout_width="380dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="9sp"
+        android:layout_width="match_parent"
+        android:layout_height="75sp"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="15sp"
         android:text="@string/common_signin_button_text_long"
@@ -52,41 +73,15 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintVertical_bias="0.21"
+        app:layout_constraintVertical_bias="0.2"
         android:textAllCaps="false"
         android:backgroundTint="@color/white_two"
         android:textSize="16sp"
         android:textColor="@color/black"
         android:drawableLeft="@drawable/googleg_standard_color_18">
-<!--        android:background="@color/signinbutton"-->
-
-
- </Button>
-   <com.sarnava.textwriter.TextWriter
-        android:id="@+id/textwriter"
-        android:layout_width="match_parent"
-        android:layout_height="65sp"
-        android:layout_marginStart="10sp"
-        android:layout_marginTop="350sp"
-        android:layout_marginEnd="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"        app:layout_constraintTop_toTopOf="parent" />
-    <com.sarnava.textwriter.TextWriter
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="65sp"
-        android:layout_marginTop="475sp"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="10sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="360dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-<!--    <ImageView-->
+    </Button>
+<!--</LinearLayout>-->
+    <!--    <ImageView-->
 <!--        android:id="@+id/imageView"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->

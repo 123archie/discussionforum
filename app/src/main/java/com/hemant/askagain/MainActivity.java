@@ -148,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         Log.d("TAG","acct: "+acct);
         if (acct != null) {
-            if(acct.getPhotoUrl()!=null)
-                userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
+            if(acct.getPhotoUrl()!=null){
+                userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());}
               FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")
