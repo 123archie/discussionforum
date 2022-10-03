@@ -118,33 +118,34 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/otfAnswerQuestion"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="110sp"
+        android:layout_marginTop="50sp"
         />
 
     <ImageView
         android:id="@+id/addAnswerPhoto"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_baseline_add_a_photo"
-        app:layout_constraintTop_toBottomOf="@+id/otfAnswerQuestion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHorizontal_bias="1"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="200sp"
         android:layout_marginEnd="10sp"
-        />
+        android:src="@drawable/ic_baseline_add_a_photo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addCommentBtn"
+        app:layout_constraintVertical_bias="0" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addCommentBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginTop="312dp"
-        android:layout_weight="0.1"
+        android:layout_marginTop="70sp"
+        android:layout_weight="0"
+        android:background="@drawable/mybutton"
         android:backgroundTint="@color/blue_shade"
         android:fontFamily="@font/spartan"
         android:padding="10sp"
@@ -152,11 +153,11 @@
         android:textAllCaps="false"
         android:textColor="@color/white_two"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.961"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addAnswerPhoto" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

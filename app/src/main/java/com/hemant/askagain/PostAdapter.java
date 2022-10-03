@@ -1,6 +1,7 @@
 package com.hemant.askagain;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -26,11 +26,12 @@ import com.hemant.askagain.databinding.PostDashboardBinding;
 import java.util.ArrayList;
 import java.util.Objects;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-int i=1;
+    int i=1;
+    int count=0;
     final Context context;
     ArrayList<PostModel> postList;
     DatabaseReference databaseReference;
-    public PostAdapter(ArrayList<PostModel> postList,Context context ){
+    public PostAdapter(ArrayList<PostModel> postList,Context context){
         this.context =context;
         this.postList = postList;
     }
@@ -47,15 +48,13 @@ int i=1;
         holder.postDashboardBinding.textQuestion.setText(postData.getTextQuestion());
         Log.d("TAG",postData.getPostedBy());
         Log.d("TAG", "onBindViewHolder: " + postData.getImageQuestion());
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference
                 .child("User")
                 .child(postData.getPostedBy()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if(snapshot.exists()){
+                 if(snapshot.exists()){
                     Log.d("Adapter", "onDataChange: exists");
                     // binding profile pic
                     Glide.with(context)
@@ -113,18 +112,42 @@ int i=1;
 
         holder.postDashboardBinding.like.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
 
-                // if like button clicked
+            public void onClick(View view) {
+               // if like button clicked
+                MediaPlayer mediaPlayer=MediaPlayer.create(context.getApplicationContext(), R.raw.likesound);
+                count++;
+                if(count%2==0){
+                    holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
+                    }
+                else{
+                    holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
+                    }
 
                 Animation animation=new RotateAnimation(
                         0,
                         -20,
-                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                animation.setDuration(100);
+                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+                        );
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        mediaPlayer.start();
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+//                        mediaPlayer.stop();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                animation.setDuration(80);
                 holder.postDashboardBinding.like.startAnimation(animation);
-//                holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
-                databaseReference.child("Posts")
+                     databaseReference.child("Posts")
                         .child(postData.getPostId())
                         .child("likedBy")
                         .child(Objects.requireNonNull(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId()))
@@ -209,7 +232,10 @@ int i=1;
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-                            holder.postDashboardBinding.like.setColorFilter(R.color.purple_700);
+                            holder.postDashboardBinding.like.setColorFilter(R.color.blue_shade);
+                        }
+                        else{
+//                            holder.postDashboardBinding.like.setColorFilter(Color.rgb(0,0,0));
                         }
                     }
 
@@ -229,16 +255,11 @@ int i=1;
                 // send posted by in bundle
                 Bundle bundle = new Bundle();
                 bundle.putString("PostId", postData.getPostId());
-
                 fragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment,fragment).addToBackStack(null).commit();
             }
         });
-
-
     }
-
-
     @Override
     public int getItemCount() {
         return postList.size();
