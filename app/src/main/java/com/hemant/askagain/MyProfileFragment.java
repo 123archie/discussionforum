@@ -1,19 +1,15 @@
 package com.hemant.askagain;
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -26,47 +22,37 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 public class MyProfileFragment extends Fragment {
-
     ImageView profilePic;
     TextView personName, personProfession, personEmail, personContact, personGender,personProfession2;
     MaterialButton logOutBtn,editProfileBtn;
     GoogleSignInClient googleSignInClient;
     GoogleSignInOptions googleSignInOptions;
     UserModel userModel;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initViews(view);
         // get bundle data
         getBundleData();
-
         googleSignInOptions = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .build();
-
         googleSignInClient= GoogleSignIn.getClient(getActivity(), googleSignInOptions);
-
-
         logOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 logOutUser();
             }
         });
-
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +76,9 @@ public class MyProfileFragment extends Fragment {
 
     private void getBundleData() {
         Bundle bundle = this.getArguments();
-        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
+        if(bundle.getString("ProfilePic")==null){
+        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));}
+        Log.d("TAG", "userModel Profile Pic: "+bundle.getString("ProfiilePic"));
         userModel.setGender(bundle.getString("Gender"));
         userModel.setProfession(bundle.getString("Profession"));
         userModel.setContactNumber(bundle.getString("Contact"));

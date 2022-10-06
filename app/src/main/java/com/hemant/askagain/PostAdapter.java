@@ -115,7 +115,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             public void onClick(View view) {
                // if like button clicked
-                MediaPlayer mediaPlayer=MediaPlayer.create(context.getApplicationContext(), R.raw.likesound);
+
                 count++;
                 if(count%2==0){
                     holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
@@ -129,22 +129,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         -20,
                         Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
                         );
-                animation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        mediaPlayer.start();
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-//                        mediaPlayer.stop();
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
                 animation.setDuration(80);
                 holder.postDashboardBinding.like.startAnimation(animation);
                      databaseReference.child("Posts")
@@ -232,7 +216,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-                            holder.postDashboardBinding.like.setColorFilter(R.color.blue_shade);
+//                            holder.postDashboardBinding.like.setColorFilter(R.color.blue_shade);
                         }
                         else{
 //                            holder.postDashboardBinding.like.setColorFilter(Color.rgb(0,0,0));
