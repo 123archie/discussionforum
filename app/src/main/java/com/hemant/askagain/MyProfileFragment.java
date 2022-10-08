@@ -76,9 +76,14 @@ public class MyProfileFragment extends Fragment {
 
     private void getBundleData() {
         Bundle bundle = this.getArguments();
-        if(bundle.getString("ProfilePic")==null){
+        Log.d("TAG", "userModel Profile Pic: "+userModel.getProfilePic());
+        if(userModel.getProfilePic()!=null){
         userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));}
-        Log.d("TAG", "userModel Profile Pic: "+bundle.getString("ProfiilePic"));
+//        else{
+//            userModel=new UserModel(bundle.getString("Name"), bundle.getString(""), bundle.getString("Email"));
+//        }
+        Log.d("TAG", "usermodel: "+userModel.getProfilePic());
+
         userModel.setGender(bundle.getString("Gender"));
         userModel.setProfession(bundle.getString("Profession"));
         userModel.setContactNumber(bundle.getString("Contact"));
