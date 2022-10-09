@@ -57,37 +57,45 @@ public class MyProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 openDialogBox();
-                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
-                FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        userModel = snapshot.getValue(UserModel.class);
-                        SetUserInfo();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                defaultgoogleaccount();
             }
         });
     }
 
     private void getBundleData() {
+        defaultgoogleaccount();
         Bundle bundle = this.getArguments();
-        Log.d("TAG", "userModel Profile Pic: "+userModel.getProfilePic());
-        if(userModel.getProfilePic()!=null){
-        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));}
-//        else{
-//            userModel=new UserModel(bundle.getString("Name"), bundle.getString(""), bundle.getString("Email"));
-//        }
-        Log.d("TAG", "usermodel: "+userModel.getProfilePic());
+        Log.d("TAG", "userModel Profile Pic: "+bundle.getString("ProfilePic"));
+        Log.d("TAG", "error found out");
+        Log.d("Usermodel", "usermodel: "+userModel);
 
+        if(bundle.getString("ProfilePic")!=null){
+        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));}
+
+        else if(bundle.getString("ProfilePic")==null){
+            userModel=new UserModel(bundle.getString("Name"), bundle.getString(""), bundle.getString("Email"));
+        }
         userModel.setGender(bundle.getString("Gender"));
+        Log.d("Usermodel", "gender: "+bundle.getString("Gender"));
         userModel.setProfession(bundle.getString("Profession"));
         userModel.setContactNumber(bundle.getString("Contact"));
         SetUserInfo();
+    }
+
+    private void defaultgoogleaccount() {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userModel = snapshot.getValue(UserModel.class);
+                SetUserInfo();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void openDialogBox() {
