@@ -65,16 +65,12 @@ public class MyProfileFragment extends Fragment {
     private void getBundleData() {
         defaultgoogleaccount();
         Bundle bundle = this.getArguments();
-        Log.d("TAG", "userModel Profile Pic: "+bundle.getString("ProfilePic"));
+
+        Log.d("Tag", "Usermodel: "+userModel);
         Log.d("TAG", "error found out");
+
+        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
         Log.d("Usermodel", "usermodel: "+userModel);
-
-        if(bundle.getString("ProfilePic")!=null){
-        userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));}
-
-        else if(bundle.getString("ProfilePic")==null){
-            userModel=new UserModel(bundle.getString("Name"), bundle.getString(""), bundle.getString("Email"));
-        }
         userModel.setGender(bundle.getString("Gender"));
         Log.d("Usermodel", "gender: "+bundle.getString("Gender"));
         userModel.setProfession(bundle.getString("Profession"));
@@ -88,6 +84,7 @@ public class MyProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userModel = snapshot.getValue(UserModel.class);
+//                Log.d("Tag", "Usermodel: "+userModel);
                 SetUserInfo();
             }
 
