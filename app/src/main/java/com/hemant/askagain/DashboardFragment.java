@@ -1,22 +1,16 @@
 package com.hemant.askagain;
-
 import static android.view.View.GONE;
-
-import android.content.Context;
 import android.os.Bundle;
-
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DashboardFragment extends Fragment {
 
@@ -58,9 +53,10 @@ public class DashboardFragment extends Fragment {
 
 
     private void openAddPostFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction= getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction= requireActivity().getSupportFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
+        Log.d("TAG", "Bundle: "+bundle);
         bundle.putString("Name", name );
         bundle.putString("ProfilePic", profilepic);
         bundle.putString("Profession", profession);
@@ -73,7 +69,6 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         getAllPost();
     }
 

@@ -1,7 +1,5 @@
 package com.hemant.askagain;
 
-import android.util.Log;
-
 public class UserModel {
     String name;
     String  profilePic;
@@ -54,7 +52,6 @@ public class UserModel {
     }
 
     public String getGender() {
-         Log.d("Usermodel", "Gender: "+gender);
          return gender;
     }
 

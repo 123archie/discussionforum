@@ -102,8 +102,10 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void SetUserInfo() {
+
         personName.setText(userModel.getName());
         personEmail.setText(userModel.getEmail());
+
         if(userModel.getProfilePic() != null) {
             Glide.with(MyProfileFragment.this)
                     .load(userModel.getProfilePic())
