@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,8 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
 public class DashboardFragment extends Fragment {
 
     static ArrayList<PostModel> postList = new ArrayList<>();
@@ -33,13 +34,14 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         initViews(view);
-
-
+//        @Override
+//        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//            super.onViewCreated(view, savedInstanceState);
+            getAllPost();
+//        }
         if(fabAddPostBtn.getVisibility()==GONE){
             fabAddPostBtn.setVisibility(View.VISIBLE);
         }
-
-
         fabAddPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +56,7 @@ public class DashboardFragment extends Fragment {
 
     private void openAddPostFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction= requireActivity().getSupportFragmentManager().beginTransaction();
-
+//        GoogleSignInAccount acct= GoogleSignIn.getLastSignedInAccount(getContext());
         Bundle bundle = new Bundle();
         Log.d("TAG", "Bundle: "+bundle);
         bundle.putString("Name", name );
@@ -66,21 +68,19 @@ public class DashboardFragment extends Fragment {
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getAllPost();
-    }
+
 
     private void getAllPost() {
         PostAdapter postAdapter = new PostAdapter(postList, getContext());
+        Log.d("TAG", "postAdapter: "+postAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(postAdapter);
-
+        Log.d("TAG", "Setting: "+recyclerView);
         FirebaseDatabase.getInstance().getReference().child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
+                    Log.d("TAG", "SNAPSHOT: "+snapshot);
                     for (DataSnapshot ds: snapshot.getChildren()){
                         PostModel post = ds.getValue(PostModel.class);
                         post.setPostId(ds.getKey());
