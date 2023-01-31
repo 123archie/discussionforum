@@ -1,4 +1,7 @@
 package com.hemant.askagain;
+
+import android.util.Log;
+
 public class PostModel {
     String postId;
     String postedBy;
@@ -18,7 +21,6 @@ public class PostModel {
     public PostModel() {
     }
 
-
     public String getImageQuestion() {
         return imageQuestion;
     }
@@ -27,9 +29,10 @@ public class PostModel {
         this.imageQuestion = imageQuestion;
     }
 
-    public String getPostedBy() {
-        return postedBy;
-    }
+     public String getPostedBy() {
+            Log.d("POSTED", "Posted BY: "+postedBy);
+            return "postedBy";
+        }
 
     public void setPostedBy(String postedBy) {
         this.postedBy = postedBy;

@@ -1,7 +1,7 @@
 package com.hemant.askagain;
+
 import android.content.Context;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hemant.askagain.databinding.PostDashboardBinding;
+
 import java.util.ArrayList;
 import java.util.Objects;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -46,7 +49,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         PostModel postData = postList.get(position);
         // binding question
         holder.postDashboardBinding.textQuestion.setText(postData.getTextQuestion());
-        Log.d("TAG",postData.getPostedBy());
+        Log.d("TAG","Posted By: "+postData.getPostedBy());
         Log.d("TAG", "onBindViewHolder: " + postData.getImageQuestion());
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference
@@ -63,6 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                             .into(holder.postDashboardBinding.postedByProfilePic);
                     // binding name
                     holder.postDashboardBinding.postedByName.setText(snapshot.child("name").getValue().toString());
+                     Log.d("Vakue", "onDataChange: exists"+snapshot.child("name").getValue().toString());
                 }
 
             }
