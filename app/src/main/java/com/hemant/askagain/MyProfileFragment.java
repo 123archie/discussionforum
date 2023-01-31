@@ -1,15 +1,18 @@
 package com.hemant.askagain;
+
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -22,6 +25,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
+
 public class MyProfileFragment extends Fragment {
     ImageView profilePic;
     TextView personName, personProfession, personEmail, personContact, personGender,personProfession2;
@@ -79,8 +85,9 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void defaultgoogleaccount() {
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
-        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).addValueEventListener(new ValueEventListener() {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(requireContext());
+        assert acct != null;
+        FirebaseDatabase.getInstance().getReference().child("User").child(Objects.requireNonNull(acct.getId())).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userModel = snapshot.getValue(UserModel.class);
