@@ -30,9 +30,14 @@ public class PostModel {
     }
 
      public String getPostedBy() {
-            Log.d("POSTED", "Posted BY: "+postedBy);
-            return "postedBy";
-        }
+           Log.d("TAG", "Value of postedBy: " + postedBy);
+         if (postedBy != null) {
+//             Log.d("TAG", "Value of postedBy: " + postedBy);}
+             return postedBy;
+         }
+
+
+     return "0";}
 
     public void setPostedBy(String postedBy) {
         this.postedBy = postedBy;
