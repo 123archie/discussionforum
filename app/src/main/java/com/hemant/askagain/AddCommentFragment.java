@@ -3,14 +3,6 @@ package com.hemant.askagain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -109,16 +104,12 @@ public class AddCommentFragment extends Fragment {
             uri = data.getData();
             imageAnswer.setImageURI(uri);
             imageAnswer.setVisibility(View.VISIBLE);
-            Log.d("TAG", "onActivityResult: start");
-
             final StorageReference storageReference = firebaseStorage.getReference()
                     .child("ImageCommentAnswer").child(acct.getId()).child(new Date().getTime() + "");
-            Log.d("TAG", "onActivityResult: " + storageReference);
             storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("TAG", "onSuccess: uadated to storage");
-                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             setCommentPhoto(uri);
@@ -130,7 +121,6 @@ public class AddCommentFragment extends Fragment {
     }
 
     private void setCommentPhoto(Uri uri) {
-        Log.d("TAG", "setCommentPhoto: " + uri.toString());
         commentModel.setImageAnswer(uri.toString());
         Toast.makeText(getView().getContext(), "Image is all set", Toast.LENGTH_LONG ).show();
 
@@ -139,9 +129,7 @@ public class AddCommentFragment extends Fragment {
     private void getBundle() {
         Bundle bundle = this.getArguments();
         PostId = bundle.getString("PostId");
-        Log.d("TAG",PostId);
-    }
-
+            }
     private void setProfileName() {
         acct = GoogleSignIn.getLastSignedInAccount(getContext());
         commentedByName.setText(acct.getDisplayName());

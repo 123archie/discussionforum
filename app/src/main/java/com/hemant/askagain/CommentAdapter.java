@@ -1,8 +1,6 @@
 package com.hemant.askagain;
 
 import android.content.Context;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +48,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             .load(snapshot.child("profilePic").getValue())
                             .placeholder(R.drawable.siu)
                             .into(holder.commentPostBinding.commentedByProfilePic);
-                    holder.commentPostBinding.commentedByName.setText(snapshot.child("name").getValue().toString());
+                    try {
+                        holder.commentPostBinding.commentedByName.setText(snapshot.child("name").getValue().toString());
+                    }catch(Exception e){
+
+                    }
+
                 }
             }
 
