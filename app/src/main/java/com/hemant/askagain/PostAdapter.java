@@ -48,7 +48,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
         PostModel postData = postList.get(position);
         // binding question
-        holder.postDashboardBinding.textQuestion.setText(postData.getTextQuestion());
+        try {
+            holder.postDashboardBinding.textQuestion.setText(postData.getTextQuestion());
+        }
+        catch (Exception e){
+
+        }
         Log.d("TAG","Posted By: "+postData.getPostedBy());
         Log.d("TAG", "onBindViewHolder: " + postData.getImageQuestion());
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -65,8 +70,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                             .placeholder(R.drawable.siu)
                             .into(holder.postDashboardBinding.postedByProfilePic);
                     // binding name
-                    holder.postDashboardBinding.postedByName.setText(snapshot.child("name").getValue().toString());
-                     Log.d("Vakue", "onDataChange: exists"+snapshot.child("name").getValue().toString());
+                     Log.d("Holder", "Value of Holder: "+holder);
+                     try {
+                         holder.postDashboardBinding.postedByName.setText(snapshot.child("name").getValue().toString());
+                     }
+                     catch(Exception e){
+
+                     }
+
+                    Log.d("SNAPSHOT", "Value of snapshot: "+snapshot);
+//                     Log.d("Value", "onDataChange: exists"+snapshot.child("name").getValue().toString());
                 }
 
             }
@@ -259,6 +272,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             postDashboardBinding = PostDashboardBinding.bind(itemView);
+            Log.d("TAG", "Value of postDashboardBinding: "+postDashboardBinding);
         }
     }
 }
