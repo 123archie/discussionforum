@@ -3,7 +3,6 @@ package com.hemant.askagain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Date;
 
 public class AddCommentFragment extends Fragment {
-
     ImageView profilePic,imageAnswer,addAnswerPhoto;
     TextView commentedByName;
     TextInputEditText answerText;
@@ -46,21 +44,16 @@ public class AddCommentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_comment, container, false);
-
         firebaseStorage = FirebaseStorage.getInstance();
-
         initViews(view);
         setProfileName();
         getBundle();
         commentModel = new CommentModel();
-
-
         addCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 commentModel.setCommentedBy(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId());
                 commentModel.setTextAnswer(answerText.getText().toString());
-
                 FirebaseDatabase.getInstance().getReference()
                         .child("Posts")
                         .child(PostId)
@@ -69,7 +62,6 @@ public class AddCommentFragment extends Fragment {
                         .setValue(commentModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Log.d("TAG", "Successfully added");
                                 openDashBoard();
                             }
                         });

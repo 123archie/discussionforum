@@ -133,15 +133,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View view) {
                // if like button clicked
 
-                count++;
-                if(count%2==0){
-                    holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
-                    }
-                else{
-                    holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
-                    }
+//                count++;
 
-                Animation animation=new RotateAnimation(
+//                    if(color == 0x1976D2){
+//                        holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
+//                    }
+//                    if(color==0xFF000000){
+//                        holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
+//                    }
+//                ColorDrawable buttonColor=(ColorDrawable)holder.postDashboardBinding.like.getBackground();
+//                Log.d("ColorDrawable", "ColorDrawable: "+buttonColor);
+//                int color=buttonColor.getColor();
+//                if(color == 0x1976D2){
+//                        holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
+//                    }
+                    Animation animation=new RotateAnimation(
                         0,
                         -20,
                         Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
@@ -157,10 +163,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
                             Log.d("TAG", "onDataChange: like exist");
+                            holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
                             // already liked now remove like count and change color
 
                             FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
                                     .child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId()).removeValue();
+
 //                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
 //                                    .child("likeCount").addListenerForSingleValueEvent(new ValueEventListener() {
 //                                        @Override
@@ -174,12 +182,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 //                                            holder.postDashboardBinding.likeCount.setText(likeCount - 1  + "");
 //                                            holder.postDashboardBinding.like.setColorFilter(R.color.black);
 //                                        }
-//
+
 //                                        @Override
 //                                        public void onCancelled(@NonNull DatabaseError error) {
 //
 //                                        }
 //                                    });
+
                             FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
                                     .child("likedBy").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -195,6 +204,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                         }else{
                             Log.d("TAG", "onDataChange:  liked not exist");
+                            holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
                             databaseReference.child("Posts").child(postData.getPostId())
                                     .child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId())
                                     .setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
