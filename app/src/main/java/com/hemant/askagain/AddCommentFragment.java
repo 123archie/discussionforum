@@ -3,6 +3,7 @@ package com.hemant.askagain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -46,6 +48,7 @@ public class AddCommentFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_comment, container, false);
         firebaseStorage = FirebaseStorage.getInstance();
         initViews(view);
+        setProfilePhoto();
         setProfileName();
         getBundle();
         commentModel = new CommentModel();
@@ -74,6 +77,15 @@ public class AddCommentFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void setProfilePhoto() {
+        acct = GoogleSignIn.getLastSignedInAccount(getContext());
+        if (acct != null) {
+            Uri profilePhoto=acct.getPhotoUrl();
+            Log.d("profilePic", "profilePic: "+profilePhoto);
+            Picasso.with(getContext()).load(String.valueOf(profilePhoto)).into(profilePic);
+        }
     }
     private void openDashBoard() {
         Fragment fragment = new DashboardFragment();

@@ -17,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hemant.askagain.databinding.ActivityHomePageBinding;
+
+import java.util.Objects;
+
 public class HomePage extends AppCompatActivity {
     ActivityHomePageBinding binding;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -48,10 +51,11 @@ public class HomePage extends AppCompatActivity {
         Bundle bundle = new Bundle();
         userModel=new UserModel();
         if(userModel.getName()!=null){
-            Log.d("TAG","Name: "+userModel.getName());
+            Log.d("MYNAME","Name: "+userModel.getName());
             bundle.putString("Name", userModel.getName() );
         }
         if(userModel.getEmail()!=null){
+
             bundle.putString("Email", userModel.getEmail());
         }
         if(userModel.getProfilePic()!=null){
@@ -75,11 +79,12 @@ public class HomePage extends AppCompatActivity {
     private void getUserInfo() {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
-            databaseReference.child("User").child(acct.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.child("User").child(Objects.requireNonNull(acct.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         userModel = snapshot.getValue(UserModel.class);
+                        Log.d("uSERMODEL", "USERMODEL: "+snapshot);
                     }
                 }
 

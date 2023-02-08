@@ -91,7 +91,7 @@ public class MyProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userModel = snapshot.getValue(UserModel.class);
-//                Log.d("Tag", "Usermodel: "+userModel);
+                Log.d("UserMODEL", "UserMODEL: "+userModel);
                 SetUserInfo();
             }
 
@@ -111,6 +111,8 @@ public class MyProfileFragment extends Fragment {
     private void SetUserInfo() {
 
         personName.setText(userModel.getName());
+        Log.d("getName", "getName: "+userModel.getName());
+        Log.d("personName", "personName: "+personName.getText().toString());
         personEmail.setText(userModel.getEmail());
 
         if(userModel.getProfilePic() != null) {

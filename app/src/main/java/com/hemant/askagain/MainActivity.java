@@ -1,17 +1,17 @@
 package com.hemant.askagain;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sarnava.textwriter.TextWriter;
+
 import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("requestCode", "requestCode: "+requestCode);
         if(requestCode == RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
@@ -147,10 +149,18 @@ public class MainActivity extends AppCompatActivity {
     private void getProfileInfo() {
         // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        Log.d("TAG","acct: "+acct);
-        if (acct != null) {
-            if(acct.getPhotoUrl()!=null){
-                userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());}
+        Log.d("acct","acct: "+acct);
+
+//        if (acct != null) {
+            Log.d("account holder name", "account holder name: "+acct.getDisplayName());
+            Log.d("account holder profile pic", "account holder profile pic: "+acct.getPhotoUrl());
+            Log.d("account holder email", "account holder email: "+acct.getEmail());
+            try {
+                userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
+                Log.d("UserModel123", "UserModel: "+userModel);}
+            catch(Exception e){
+                Log.e("TAG", "Exception: "+e);
+            }
               FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")
@@ -173,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+//    }
 
 
 
