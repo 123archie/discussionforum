@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sarnava.textwriter.TextWriter;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     TextWriter textWriter, textwriter;
     boolean alreadyExist=true;
     ConstraintLayout constraintLayout;
+    DataSnapshot snapshot;
+    DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +62,17 @@ public class MainActivity extends AppCompatActivity {
                 })
         .startAnimation();
         Log.d("TAG", "signing in: Signing in successful");
-
          googleSignInConfigure();
         checkPreviousSignIn();
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("TAG", "signed in successfully");
+
                signInBtn.setBackgroundColor(Color.rgb(51, 153, 255));
                signInBtn.setTextColor(Color.rgb(251, 250, 250));
                signIn();
-            }
+                 }
         });
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,10 +94,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-
         Intent intent = googleSignInClient.getSignInIntent();
         startActivityForResult(intent,RC_SIGN_IN);
-           }
+               }
 
 
     @Override
@@ -112,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             if(dataExist()){
                 getProfileInfo();
-            }
-
+                            }
             // Signed in successfully, show authenticated UI.
+
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("account holder profile pic", "account holder profile pic: "+acct.getPhotoUrl());
             Log.d("account holder email", "account holder email: "+acct.getEmail());
             try {
+
                 userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
                 Log.d("UserModel123", "UserModel: "+userModel);}
             catch(Exception e){

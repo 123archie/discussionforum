@@ -109,27 +109,41 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void SetUserInfo() {
-
-        personName.setText(userModel.getName());
-        Log.d("getName", "getName: "+userModel.getName());
-        Log.d("personName", "personName: "+personName.getText().toString());
-        personEmail.setText(userModel.getEmail());
-
-        if(userModel.getProfilePic() != null) {
+        try {
+            personName.setText(userModel.getName());
+            Log.d("getName", "getName: " + userModel.getName());
+            Log.d("personName", "personName: " + personName.getText().toString());
+        }catch(Exception e){
+            Log.d("null msg", "No name found");
+        }
+        try {
+            personEmail.setText(userModel.getEmail());
+        }catch(Exception e){
+            Log.d("null msg", "No email found");
+        }
+        try {
             Glide.with(MyProfileFragment.this)
                     .load(userModel.getProfilePic())
                     .into(profilePic);
+        }catch(Exception e){
+
         }
         // when data fields are updated or changed if dialog box is open
-        if(userModel.getProfession() != null){
+        try{
             personProfession.setText(userModel.getProfession());
             personProfession2.setText(userModel.getProfession());
+        }catch(Exception e){
+
         }
-        if(userModel.getGender() != null){
+        try{
             personGender.setText(userModel.getGender());
+        }catch(Exception e){
+
         }
-        if(userModel.getContactNumber() != null){
+        try{
             personContact.setText(userModel.getContactNumber());
+        }catch(Exception e){
+
         }
     }
 
