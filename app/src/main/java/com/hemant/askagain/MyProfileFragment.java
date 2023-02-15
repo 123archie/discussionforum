@@ -125,7 +125,7 @@ public class MyProfileFragment extends Fragment {
         }
         try {
             Glide.with(MyProfileFragment.this)
-                    .load(userModel.getProfilePic())
+                    .load(acct.getPhotoUrl())
                     .into(profilePic);
         }catch(Exception e){
 
