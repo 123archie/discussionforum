@@ -51,7 +51,6 @@ public class HomePage extends AppCompatActivity {
             bundle.putString("Name", userModel.getName() );
         }
         if(userModel.getEmail()!=null){
-
             bundle.putString("Email", userModel.getEmail());
         }
         if(userModel.getProfilePic()!=null){
@@ -78,7 +77,7 @@ public class HomePage extends AppCompatActivity {
             databaseReference.child("User").child(Objects.requireNonNull(acct.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
+                       if(snapshot.exists()){
                         userModel = snapshot.getValue(UserModel.class);
                         Log.d("uSERMODEL", "USERMODEL: "+snapshot);
                     }

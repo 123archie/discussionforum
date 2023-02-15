@@ -1,5 +1,4 @@
 package com.hemant.askagain;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -75,8 +72,12 @@ public class MyProfileFragment extends Fragment {
         Log.d("Tag", "Usermodel: "+userModel);
         Log.d("TAG", "error found out");
 
+        assert bundle != null;
+        GoogleSignInAccount acct=GoogleSignIn.getLastSignedInAccount(requireContext());
+
         userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
         Log.d("Usermodel", "usermodel: "+userModel);
+//        userModel.setName(acct.getDisplayName());
         userModel.setGender(bundle.getString("Gender"));
         Log.d("Usermodel", "gender: "+bundle.getString("Gender"));
         userModel.setProfession(bundle.getString("Profession"));
@@ -109,15 +110,16 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void SetUserInfo() {
+        GoogleSignInAccount acct=GoogleSignIn.getLastSignedInAccount(requireContext());
         try {
-            personName.setText(userModel.getName());
+            personName.setText(acct.getDisplayName());
             Log.d("getName", "getName: " + userModel.getName());
             Log.d("personName", "personName: " + personName.getText().toString());
         }catch(Exception e){
             Log.d("null msg", "No name found");
         }
         try {
-            personEmail.setText(userModel.getEmail());
+            personEmail.setText(acct.getEmail());
         }catch(Exception e){
             Log.d("null msg", "No email found");
         }

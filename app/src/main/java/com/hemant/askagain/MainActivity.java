@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 })
         .startAnimation();
         Log.d("TAG", "signing in: Signing in successful");
-         googleSignInConfigure();
+        googleSignInConfigure();
         checkPreviousSignIn();
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
             openHomePage();
-
         }
     }
 
@@ -97,8 +96,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = googleSignInClient.getSignInIntent();
         startActivityForResult(intent,RC_SIGN_IN);
                }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("account holder profile pic", "account holder profile pic: "+acct.getPhotoUrl());
             Log.d("account holder email", "account holder email: "+acct.getEmail());
             try {
-
                 userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
                 Log.d("UserModel123", "UserModel: "+userModel);}
             catch(Exception e){
