@@ -3,7 +3,6 @@ package com.hemant.askagain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +82,6 @@ public class AddCommentFragment extends Fragment {
         acct = GoogleSignIn.getLastSignedInAccount(getContext());
         if (acct != null) {
             Uri profilePhoto=acct.getPhotoUrl();
-            Log.d("profilePic", "profilePic: "+profilePhoto);
             Picasso.with(getContext()).load(String.valueOf(profilePhoto)).into(profilePic);
         }
     }

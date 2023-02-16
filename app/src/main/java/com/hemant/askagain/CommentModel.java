@@ -5,7 +5,6 @@ public class CommentModel {
     private String textAnswer;
     private String imageAnswer;
 
-
     public CommentModel() {
     }
 

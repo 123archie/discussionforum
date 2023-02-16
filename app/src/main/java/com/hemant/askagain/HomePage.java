@@ -35,7 +35,6 @@ public class HomePage extends AppCompatActivity {
                     replaceFragment(new DashboardFragment());
                     break;
                 case R.id.my_profile:
-                    Log.d("TAG", "item id: "+item.getItemId());
                     sendUserInfoReplaceFragment(new MyProfileFragment());
                     break;
              }
@@ -47,7 +46,6 @@ public class HomePage extends AppCompatActivity {
         Bundle bundle = new Bundle();
         userModel=new UserModel();
         if(userModel.getName()!=null){
-            Log.d("MYNAME","Name: "+userModel.getName());
             bundle.putString("Name", userModel.getName() );
         }
         if(userModel.getEmail()!=null){
@@ -79,7 +77,6 @@ public class HomePage extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                        if(snapshot.exists()){
                         userModel = snapshot.getValue(UserModel.class);
-                        Log.d("uSERMODEL", "USERMODEL: "+snapshot);
                     }
                 }
 

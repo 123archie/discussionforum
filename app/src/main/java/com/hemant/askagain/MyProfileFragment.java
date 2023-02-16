@@ -68,10 +68,6 @@ public class MyProfileFragment extends Fragment {
     private void getBundleData() {
         defaultgoogleaccount();
         Bundle bundle = this.getArguments();
-
-        Log.d("Tag", "Usermodel: "+userModel);
-        Log.d("TAG", "error found out");
-
         assert bundle != null;
         GoogleSignInAccount acct=GoogleSignIn.getLastSignedInAccount(requireContext());
 

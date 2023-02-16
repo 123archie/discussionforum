@@ -61,14 +61,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
         .startAnimation();
-        Log.d("TAG", "signing in: Signing in successful");
         googleSignInConfigure();
         checkPreviousSignIn();
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "signed in successfully");
-
                signInBtn.setBackgroundColor(Color.rgb(51, 153, 255));
                signInBtn.setTextColor(Color.rgb(251, 250, 250));
                signIn();
@@ -99,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("requestCode", "requestCode: "+requestCode);
         if(requestCode == RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
@@ -141,22 +137,19 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-        Log.d("TAG", "dataExist: " + alreadyExist);
         return alreadyExist;
     }
 
     private void getProfileInfo() {
         // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        Log.d("acct","acct: "+acct);
-
 //        if (acct != null) {
             Log.d("account holder name", "account holder name: "+acct.getDisplayName());
             Log.d("account holder profile pic", "account holder profile pic: "+acct.getPhotoUrl());
             Log.d("account holder email", "account holder email: "+acct.getEmail());
             try {
                 userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
-                Log.d("UserModel123", "UserModel: "+userModel);}
+               }
             catch(Exception e){
                 Log.e("TAG", "Exception: "+e);
             }
@@ -169,11 +162,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     if(!snapshot.exists()){
-                        Log.d("TAG", "onDataChange: new userModel register");
                         FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).setValue(userModel);
                     }
                     openHomePage();
-
                 }
 
                 @Override
@@ -183,18 +174,12 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 //    }
-
-
-
-    private void openHomePage() {
-
+   private void openHomePage() {
         // Opening the next activity
         Intent intent =new Intent(this, HomePage.class);
         startActivity(intent);
         finish();
     }
-
-
     private void googleSignInConfigure() {
         // Building google SignInOptions and SignInClient
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -202,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
     }
-
     private void initViews() {
         // Initializing the Views
         textWriter=findViewById(R.id.textwriter);

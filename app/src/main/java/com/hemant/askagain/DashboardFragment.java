@@ -60,11 +60,9 @@ public class DashboardFragment extends Fragment {
         FragmentTransaction fragmentTransaction= requireActivity().getSupportFragmentManager().beginTransaction();
         GoogleSignInAccount acct= GoogleSignIn.getLastSignedInAccount(getContext());
         Bundle bundle = new Bundle();
-        Log.d("TAG", "Bundle: "+bundle);
         bundle.putString("Name", name );
         bundle.putString("ProfilePic", profilepic);
         bundle.putString("Profession", profession);
-
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment,fragment).addToBackStack(null).commit();
     }
@@ -74,20 +72,16 @@ public class DashboardFragment extends Fragment {
     }
     private void getAllPost() {
         PostAdapter postAdapter = new PostAdapter(postList, getContext());
-        Log.d("TAG", "postAdapter: "+postAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(postAdapter);
-        Log.d("TAG", "Setting: "+recyclerView);
         FirebaseDatabase.getInstance().getReference().child("Posts").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    Log.d("TAG", "SNAPSHOT: "+snapshot);
                     for (DataSnapshot ds: snapshot.getChildren()){
                         PostModel post = ds.getValue(PostModel.class);
                         post.setPostId(ds.getKey());
                         postList.add(post);
-                        Log.d("TAG", "onDataChange: " + postList.size());
                     }
                     postAdapter.notifyItemInserted(1);
                 }

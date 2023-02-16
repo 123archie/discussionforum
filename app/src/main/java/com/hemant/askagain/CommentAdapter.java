@@ -18,15 +18,12 @@ import com.hemant.askagain.databinding.CommentPostBinding;
 import java.util.ArrayList;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
-
     Context context;
     ArrayList<CommentModel> commentList;
-
     public CommentAdapter(ArrayList<CommentModel> commentList,Context context ){
         this.context =context;
         this.commentList = commentList;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,8 +35,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         CommentModel commentData = commentList.get(position);
         holder.commentPostBinding.textAnswer.setText(commentData.getTextAnswer());
-
-
         FirebaseDatabase.getInstance().getReference().child("User").child(commentData.getCommentedBy()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -69,15 +64,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     .into(holder.commentPostBinding.imageAnswer);
             holder.commentPostBinding.imageAnswer.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
     public int getItemCount() {
         return commentList.size();
     }
-
-
     public class ViewHolder extends RecyclerView.ViewHolder{
         CommentPostBinding commentPostBinding;
 

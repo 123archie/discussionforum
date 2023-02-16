@@ -97,15 +97,12 @@ public class AddPostFragment extends Fragment {
             uri = data.getData();
             imageQuestion.setImageURI(uri);
             imageQuestion.setVisibility(View.VISIBLE);
-            Log.d("TAG", "onActivityResult: start");
             final StorageReference storageReference = firebaseStorage.getReference()
                     .child("ImageCommentAnswer").child(acct.getId()).child(new Date().getTime() + "");
-            Log.d("TAG", "onActivityResult: " + storageReference);
-            storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("TAG", "onSuccess: updated to storage");
-                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             setPostPhoto(uri);
@@ -116,7 +113,6 @@ public class AddPostFragment extends Fragment {
         }
     }
     private void setPostPhoto(Uri uri) {
-        Log.d("TAG", "setCommentPhoto: " + uri.toString());
         postModel.setImageQuestion(uri.toString());
         Toast.makeText(getView().getContext(), "Image is all set", Toast.LENGTH_LONG ).show();
     }
