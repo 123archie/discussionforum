@@ -3,17 +3,14 @@ package com.hemant.askagain;
 import static android.view.View.GONE;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,10 +34,6 @@ public class DashboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         initViews(view);
 
-//        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//            super.onViewCreated(view, savedInstanceState);
-//            getAllPost();
-//        }
         if(fabAddPostBtn.getVisibility()==GONE){
             fabAddPostBtn.setVisibility(View.VISIBLE);
         }
@@ -60,7 +53,7 @@ public class DashboardFragment extends Fragment {
         FragmentTransaction fragmentTransaction= requireActivity().getSupportFragmentManager().beginTransaction();
         GoogleSignInAccount acct= GoogleSignIn.getLastSignedInAccount(getContext());
         Bundle bundle = new Bundle();
-        bundle.putString("Name", name );
+        bundle.putString("Name", name);
         bundle.putString("ProfilePic", profilepic);
         bundle.putString("Profession", profession);
         fragment.setArguments(bundle);

@@ -70,12 +70,9 @@ public class MyProfileFragment extends Fragment {
         Bundle bundle = this.getArguments();
         assert bundle != null;
         GoogleSignInAccount acct=GoogleSignIn.getLastSignedInAccount(requireContext());
-
         userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
-        Log.d("Usermodel", "usermodel: "+userModel);
-//        userModel.setName(acct.getDisplayName());
+        //userModel.setName(acct.getDisplayName());
         userModel.setGender(bundle.getString("Gender"));
-        Log.d("Usermodel", "gender: "+bundle.getString("Gender"));
         userModel.setProfession(bundle.getString("Profession"));
         userModel.setContactNumber(bundle.getString("Contact"));
         SetUserInfo();
@@ -88,7 +85,6 @@ public class MyProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userModel = snapshot.getValue(UserModel.class);
-                Log.d("UserMODEL", "UserMODEL: "+userModel);
                 SetUserInfo();
             }
 
@@ -100,7 +96,6 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void openDialogBox() {
-        Log.d("TAG", "openDialogBox: dialog open");
         UpdateProfileDialog updateProfileDialog = new UpdateProfileDialog();
         updateProfileDialog.show(getParentFragmentManager(),"UpdateFragment Dialog");
     }
@@ -109,15 +104,13 @@ public class MyProfileFragment extends Fragment {
         GoogleSignInAccount acct=GoogleSignIn.getLastSignedInAccount(requireContext());
         try {
             personName.setText(acct.getDisplayName());
-            Log.d("getName", "getName: " + userModel.getName());
-            Log.d("personName", "personName: " + personName.getText().toString());
         }catch(Exception e){
-            Log.d("null msg", "No name found");
+
         }
         try {
             personEmail.setText(acct.getEmail());
         }catch(Exception e){
-            Log.d("null msg", "No email found");
+
         }
         try {
             Glide.with(MyProfileFragment.this)

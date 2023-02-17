@@ -1,7 +1,5 @@
 package com.hemant.askagain;
 
-import android.util.Log;
-
 public class PostModel {
     String postId;
     String postedBy;
@@ -30,13 +28,9 @@ public class PostModel {
     }
 
      public String getPostedBy() {
-           Log.d("TAG", "Value of postedBy: " + postedBy);
          if (postedBy != null) {
-//             Log.d("TAG", "Value of postedBy: " + postedBy);}
              return postedBy;
          }
-
-
      return "0";}
 
     public void setPostedBy(String postedBy) {

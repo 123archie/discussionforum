@@ -3,17 +3,18 @@ package com.hemant.askagain;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hemant.askagain.databinding.PostDashboardBinding;
+
 import java.util.ArrayList;
 import java.util.Objects;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -52,8 +54,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         catch (Exception e){
 
         }
-        Log.d("TAG","Posted By: "+postData.getPostedBy());
-        Log.d("TAG", "onBindViewHolder: " + postData.getImageQuestion());
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference
                 .child("User")
@@ -61,23 +61,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                  if(snapshot.exists()){
-                    Log.d("Adapter", "onDataChange: exists");
                     // binding profile pic
                     Glide.with(context)
                             .load(snapshot.child("profilePic").getValue())
                             .placeholder(R.drawable.siu)
                             .into(holder.postDashboardBinding.postedByProfilePic);
                     // binding name
-                     Log.d("Holder", "Value of Holder: "+holder);
                      try {
                          holder.postDashboardBinding.postedByName.setText(snapshot.child("name").getValue().toString());
                      }
                      catch(Exception e){
 
                      }
-
-                    Log.d("SNAPSHOT", "Value of snapshot: "+snapshot);
-//                     Log.d("Value", "onDataChange: exists"+snapshot.child("name").getValue().toString());
                 }
 
             }
@@ -116,7 +111,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         databaseReference.child("Posts").child(GoogleSignIn.getLastSignedInAccount(context).getId());
 
         if(postData.getImageQuestion() != null){
-            Log.d("TAG", "onBindViewHolder: " + postData.getImageQuestion());
             Glide.with(context)
                     .load(postData.getImageQuestion())
                     .into(holder.postDashboardBinding.imageQuestion);
@@ -160,7 +154,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-                            Log.d("TAG", "onDataChange: like exist");
                             holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
                             // already liked now remove like count and change color
 
@@ -201,7 +194,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                                     });
 
                         }else{
-                            Log.d("TAG", "onDataChange:  liked not exist");
                             holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
                             databaseReference.child("Posts").child(postData.getPostId())
                                     .child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId())
@@ -280,7 +272,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             postDashboardBinding = PostDashboardBinding.bind(itemView);
-            Log.d("TAG", "Value of postDashboardBinding: "+postDashboardBinding);
         }
     }
 }

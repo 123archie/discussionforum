@@ -1,7 +1,5 @@
 package com.hemant.askagain;
 
-import android.util.Log;
-
 public class UserModel {
     String name;
     String profilePic;
@@ -14,14 +12,10 @@ public class UserModel {
         }
 
      public String getName () {
-         Log.d("name", "name: " + name);
          return name;
         }
         public void setName (String name){
-            Log.d("NAME", "this.NAME: " + this.name);
-            Log.d("NAME", "NAME: " + name);
             this.name = name;
-
         }
 
         public String getProfilePic () {
