@@ -3,7 +3,6 @@ package com.hemant.askagain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +45,11 @@ public class AddPostFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_post,container,false);
         firebaseStorage = FirebaseStorage.getInstance();
+        userModel=new UserModel();
         initViews(view);
         setProfileName();
         getBundle();
         postModel = new PostModel();
-        userModel=new UserModel();
         addPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,9 +76,12 @@ public class AddPostFragment extends Fragment {
     }
     private void getBundle() {
         Bundle bundle = this.getArguments();
-        profession = bundle.getString("Profession");
 
-    }
+        assert bundle != null;
+        userModel=new UserModel(bundle.getString("Name"), bundle.getString("Profession"), bundle.getString("ProfilePic"));
+        profession = bundle.getString("Profession");
+        postedByProfession.setText("Profession");
+           }
     private void openHomePage() {
         Intent intent = new Intent(getContext(), HomePage.class);
         startActivity(intent);
@@ -119,13 +121,9 @@ public class AddPostFragment extends Fragment {
     private void setProfileName() {
         Bundle bundle=this.getArguments();
         acct = GoogleSignIn.getLastSignedInAccount(getContext());
+        assert acct != null;
         postedByName.setText(acct.getDisplayName());
         postedByName.setText(acct.getDisplayName());
-        try {
-            postedByProfession.setText(userModel.profession);
-        }catch(Exception e){
-
-        }
         Glide.with(getContext())
                 .load(acct.getPhotoUrl())
                 .into(profilePic);

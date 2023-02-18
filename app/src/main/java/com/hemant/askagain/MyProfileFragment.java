@@ -1,15 +1,17 @@
 package com.hemant.askagain;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -71,7 +73,6 @@ public class MyProfileFragment extends Fragment {
         assert bundle != null;
         GoogleSignInAccount acct=GoogleSignIn.getLastSignedInAccount(requireContext());
         userModel = new UserModel(bundle.getString("Name"),bundle.getString("ProfilePic"), bundle.getString("Email"));
-        //userModel.setName(acct.getDisplayName());
         userModel.setGender(bundle.getString("Gender"));
         userModel.setProfession(bundle.getString("Profession"));
         userModel.setContactNumber(bundle.getString("Contact"));
