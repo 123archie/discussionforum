@@ -46,7 +46,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
         PostModel postData = postList.get(position);
-
         // binding question
         try {
             holder.postDashboardBinding.textQuestion.setText(postData.getTextQuestion());
