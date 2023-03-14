@@ -24,8 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sarnava.textwriter.TextWriter;
-
-import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
     private Button signInBtn;
@@ -96,8 +94,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("RequestCode", "RequestCode: "+requestCode);
         if(requestCode == RC_SIGN_IN){
+            Log.d("HEllo", "Hello");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            Log.d("TaskResult", "Task: "+task);
             handleSignInResult(task);
         }
     }
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
+            Log.d("AccountManagerUI", "Account: "+dataExist());
             if(dataExist()){
                 getProfileInfo();
                             }
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.e("TAG", "signInResult:failed code=" + e.getStatusCode());
+            Log.e("TaskResultFailed", "signInResult:failed code=" + e.getStatusCode());
         }
     }
 
@@ -143,27 +145,27 @@ public class MainActivity extends AppCompatActivity {
     private void getProfileInfo() {
         // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-//        if (acct != null) {
+        assert  acct!=null;
             Log.d("account holder name", "account holder name: "+acct.getDisplayName());
             Log.d("account holder profile pic", "account holder profile pic: "+acct.getPhotoUrl());
             Log.d("account holder email", "account holder email: "+acct.getEmail());
             try {
-                userModel = new UserModel(acct.getDisplayName(),acct.getPhotoUrl().toString(),acct.getEmail());
-               }
+                userModel = new UserModel();
+                Log.d("USERModel", "USER: "+userModel); }
             catch(Exception e){
                 Log.e("TAG", "Exception: "+e);
             }
               FirebaseDatabase.getInstance()
                     .getReference()
                     .child("User")
-                    .child(Objects.requireNonNull(acct.getId()))
+                    .child(acct.getId())
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     if(!snapshot.exists()){
                         FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).setValue(userModel);
-                    }
+                        }
                     openHomePage();
                 }
 
