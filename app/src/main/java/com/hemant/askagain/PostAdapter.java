@@ -67,7 +67,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                             .into(holder.postDashboardBinding.postedByProfilePic);
                     // binding name
                      try {
-                         holder.postDashboardBinding.postedByName.setText(snapshot.child("name").getValue().toString());
+                         holder.postDashboardBinding.postedByName.setText(snapshot.child("Name").getValue().toString());
                      }
                      catch(Exception e){
 

@@ -44,7 +44,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             .placeholder(R.drawable.siu)
                             .into(holder.commentPostBinding.commentedByProfilePic);
                     try {
-                        holder.commentPostBinding.commentedByName.setText(snapshot.child("name").getValue().toString());
+                        holder.commentPostBinding.commentedByName.setText(snapshot.child("Name").getValue().toString());
                     }catch(Exception e){
 
                     }

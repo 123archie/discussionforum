@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            Log.d("AccountManagerUI", "Account: "+dataExist());
+            Log.d("AccountManagerUI", "Account: "+account);
             if(dataExist()){
                 getProfileInfo();
                             }
@@ -150,8 +150,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("account holder profile pic", "account holder profile pic: "+acct.getPhotoUrl());
             Log.d("account holder email", "account holder email: "+acct.getEmail());
             try {
-                userModel = new UserModel();
-                Log.d("USERModel", "USER: "+userModel); }
+                Log.d("USERModel", "USER: "+acct.getDisplayName());
+                userModel = new UserModel(acct.getDisplayName(), acct.getPhotoUrl().toString(), acct.getEmail());
+                Log.d("USERModel", "USER: "+acct.getDisplayName());
+            }
             catch(Exception e){
                 Log.e("TAG", "Exception: "+e);
             }
@@ -164,8 +166,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     if(!snapshot.exists()){
-                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).setValue(userModel);
+                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Name").setValue(acct.getDisplayName());
+                        try {
+                            FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(acct.getPhotoUrl());
+                        }catch(Exception e){
+
                         }
+                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Email").setValue(acct.getEmail());}
                     openHomePage();
                 }
 
