@@ -164,14 +164,28 @@ public class MainActivity extends AppCompatActivity {
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+//                    FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+//                    assert  firebaseUser!=null;
                     if(!snapshot.exists()){
                         FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Name").setValue(acct.getDisplayName());
-                        try {
-                            FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(acct.getPhotoUrl());
-                        }catch(Exception e){
 
-                        }
+                        //set profile photo
+
+//                        Uri photoUrl=firebaseUser.getPhotoUrl();
+//                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(photoUrl);
+//                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                String photoUrl=(String) snapshot.getValue();
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+
+
                         FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Email").setValue(acct.getEmail());}
                     openHomePage();
                 }
