@@ -1,5 +1,4 @@
 package com.hemant.askagain;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -94,11 +93,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("RequestCode", "RequestCode: "+requestCode);
         if(requestCode == RC_SIGN_IN){
-            Log.d("HEllo", "Hello");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Log.d("TaskResult", "Task: "+task);
+            Log.d("GoogleSignInAccount", "GoogleSignINACcoutn:"+task);
             handleSignInResult(task);
         }
     }
@@ -106,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            Log.d("AccountManagerUI", "Account: "+account);
             if(dataExist()){
                 getProfileInfo();
                             }
@@ -146,13 +142,8 @@ public class MainActivity extends AppCompatActivity {
         // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         assert  acct!=null;
-            Log.d("account holder name", "account holder name: "+acct.getDisplayName());
-            Log.d("account holder profile pic", "account holder profile pic: "+acct.getPhotoUrl());
-            Log.d("account holder email", "account holder email: "+acct.getEmail());
             try {
-                Log.d("USERModel", "USER: "+acct.getDisplayName());
                 userModel = new UserModel(acct.getDisplayName(), acct.getPhotoUrl().toString(), acct.getEmail());
-                Log.d("USERModel", "USER: "+acct.getDisplayName());
             }
             catch(Exception e){
                 Log.e("TAG", "Exception: "+e);
@@ -165,28 +156,29 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                    FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-//                    assert  firebaseUser!=null;
                     if(!snapshot.exists()){
                         FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Name").setValue(acct.getDisplayName());
 
                         //set profile photo
-
-//                        Uri photoUrl=firebaseUser.getPhotoUrl();
-//                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(photoUrl);
-//                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                String photoUrl=(String) snapshot.getValue();
-//                            }
+//                        try {
+//                            Uri photoUrl=firebaseUser.getPhotoUrl();
+//                            Log.d("Photo", "Photo: "+photoUrl);
+//                            FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(photoUrl);
+//                            FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    String photoUrl=(String) snapshot.getValue();
+//                                }
 //
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
 //
-//                            }
-//                        });
-
-
-                        FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Email").setValue(acct.getEmail());}
+//                                }
+//                            });
+//                        }catch(Exception e){
+//
+//                        }
+                    FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Email").setValue(acct.getEmail());}
                     openHomePage();
                 }
 

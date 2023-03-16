@@ -82,7 +82,7 @@
             android:fontFamily="@font/spartan"
             android:text="Question Asked for in words?"
             android:textSize="17sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
