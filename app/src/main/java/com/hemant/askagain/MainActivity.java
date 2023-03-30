@@ -1,6 +1,8 @@
 package com.hemant.askagain;
+
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Log.d("GoogleSignInAccount", "GoogleSignINACcoutn:"+task);
+            Log.d("GoogleSignInAccount", "GoogleSignINACcount:"+task);
             handleSignInResult(task);
         }
     }
@@ -155,29 +157,31 @@ public class MainActivity extends AppCompatActivity {
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
                     if(!snapshot.exists()){
                         FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Name").setValue(acct.getDisplayName());
 
                         //set profile photo
 //                        try {
-//                            Uri photoUrl=firebaseUser.getPhotoUrl();
-//                            Log.d("Photo", "Photo: "+photoUrl);
-//                            FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(photoUrl);
-//                            FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                    String photoUrl=(String) snapshot.getValue();
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                }
-//                            });
-//                        }catch(Exception e){
-//
-//                        }
+                            Uri photoUrl=acct.getPhotoUrl();
+                            Log.d("Photo", "Photo: "+photoUrl);
+                            try {
+                                FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(photoUrl.toString());
+                                FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String photoUrl=(String) snapshot.getValue();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+
+                        }catch(Exception e){
+
+                        }
                     FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Email").setValue(acct.getEmail());}
                     openHomePage();
                 }
