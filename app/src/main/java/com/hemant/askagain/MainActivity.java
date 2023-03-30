@@ -154,14 +154,13 @@ public class MainActivity extends AppCompatActivity {
                     .getReference()
                     .child("User")
                     .child(acct.getId())
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                    .addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(!snapshot.exists()){
+                    if(!snapshot.exists() || snapshot.exists()){
+                        Log.d("Account Display Name", "Account Display Name"+acct.getDisplayName());
                         FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Name").setValue(acct.getDisplayName());
 
-                        //set profile photo
-//                        try {
                             Uri photoUrl=acct.getPhotoUrl();
                             Log.d("Photo", "Photo: "+photoUrl);
                             try {
