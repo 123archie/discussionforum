@@ -40,7 +40,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     Glide.with(context)
-                            .load(snapshot.child("profilePic").getValue())
+                            .load(snapshot.child("ProfilePic").getValue())
                             .placeholder(R.drawable.siu)
                             .into(holder.commentPostBinding.commentedByProfilePic);
                     try {
