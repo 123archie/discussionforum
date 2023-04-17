@@ -116,6 +116,7 @@ public class MyProfileFragment extends Fragment {
         try {
             Glide.with(MyProfileFragment.this)
                     .load(acct.getPhotoUrl())
+                    .placeholder(R.drawable.profile)
                     .into(profilePic);
         }catch(Exception e){
 

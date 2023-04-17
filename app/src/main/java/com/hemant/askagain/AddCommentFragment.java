@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -81,8 +80,10 @@ public class AddCommentFragment extends Fragment {
     private void setProfilePhoto() {
         acct = GoogleSignIn.getLastSignedInAccount(getContext());
         if (acct != null) {
-            Uri profilePhoto=acct.getPhotoUrl();
-            Picasso.with(getContext()).load(String.valueOf(profilePhoto)).into(profilePic);
+            Glide.with(getContext())
+                    .load(acct.getPhotoUrl())
+                    .placeholder(R.drawable.profile)
+                    .into(profilePic);
         }
     }
     private void openDashBoard() {

@@ -65,7 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     // binding profile pic
                     Glide.with(context)
                             .load(snapshot.child("ProfilePic").getValue())
-                            .placeholder(R.drawable.siu)
+                            .placeholder(R.drawable.profile)
                             .into(holder.postDashboardBinding.postedByProfilePic);
                     // binding name
                      try {

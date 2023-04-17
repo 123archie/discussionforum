@@ -126,6 +126,7 @@ public class AddPostFragment extends Fragment {
         postedByName.setText(acct.getDisplayName());
         Glide.with(getContext())
                 .load(acct.getPhotoUrl())
+                .placeholder(R.drawable.profile)
                 .into(profilePic);
     }
     private void initViews(View view) {
