@@ -3,6 +3,7 @@ package com.hemant.askagain;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                             .placeholder(R.drawable.profile)
                             .into(holder.postDashboardBinding.postedByProfilePic);
                     // binding name
+                     Log.d("ProfilePIc", "ProfilePic: "+snapshot.child("ProfilePic").getValue());
                      try {
                          holder.postDashboardBinding.postedByName.setText(snapshot.child("Name").getValue().toString());
                      }
