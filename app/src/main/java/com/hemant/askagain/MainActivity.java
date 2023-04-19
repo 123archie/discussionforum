@@ -1,5 +1,4 @@
 package com.hemant.askagain;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -7,12 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -83,7 +80,15 @@ public class MainActivity extends AppCompatActivity {
     private void checkPreviousSignIn() {
         // Check for any previous signIn UserModel after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
         if(account != null){
+
+//
+//            FirebaseDatabase.getInstance().getReference().child("User").child(account.getId()).child("Name").setValue(account.getDisplayName());
+//            FirebaseDatabase.getInstance().getReference().child("User").child(account.getId()).child("ProfilePic").setValue(account.getPhotoUrl().toString());
+//            FirebaseDatabase.getInstance().getReference().child("User").child(account.getId()).child("Email").setValue(account.getEmail());
+
+
             openHomePage();
         }
     }
@@ -97,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Log.d("GoogleSignInAccount", "GoogleSignINACcount:"+task);
+            Log.d("GoogleSignInAccount", "GoogleSignINACcount:"+task.getResult());
             handleSignInResult(task);
         }
     }
@@ -164,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                             Uri photoUrl=acct.getPhotoUrl();
                             Log.d("Photo", "Photo: "+photoUrl);
                             try {
-                                FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(photoUrl.toString());
+                                FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(acct.getPhotoUrl().toString());
                                 FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -194,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
 //    }
    private void openHomePage() {
         // Opening the next activity
+//       FirebaseDatabase.getInstance().getReference().child("Users").child(acct.getId()).child("ProfilePic").setValue(account.getPhotoUrl().toString());
         Intent intent =new Intent(this, HomePage.class);
         startActivity(intent);
         finish();

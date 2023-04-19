@@ -101,10 +101,12 @@ public class MyProfileFragment extends Fragment {
         updateProfileDialog.show(getParentFragmentManager(),"UpdateFragment Dialog");
     }
 
+
+
     private void SetUserInfo() {
         GoogleSignInAccount acct=GoogleSignIn.getLastSignedInAccount(requireContext());
         try {
-            personName.setText(acct.getDisplayName());
+            personName.setText(acct.getDisplayName().toString());
         }catch(Exception e){
 
         }
