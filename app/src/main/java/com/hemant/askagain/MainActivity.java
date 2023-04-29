@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ConstraintLayout constraintLayout;
     DataSnapshot snapshot;
     DatabaseReference databaseReference;
+    private ImageView user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +85,6 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
         if(account != null){
-
-//
-//            FirebaseDatabase.getInstance().getReference().child("User").child(account.getId()).child("Name").setValue(account.getDisplayName());
-//            FirebaseDatabase.getInstance().getReference().child("User").child(account.getId()).child("ProfilePic").setValue(account.getPhotoUrl().toString());
-//            FirebaseDatabase.getInstance().getReference().child("User").child(account.getId()).child("Email").setValue(account.getEmail());
-
-
             openHomePage();
         }
     }
@@ -184,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         }catch(Exception e){
-
+                            FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(user);
                         }
                     FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Email").setValue(acct.getEmail());}
                     openHomePage();
@@ -213,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void initViews() {
         // Initializing the Views
+        user=findViewById(R.id.profilePic);
         textWriter=findViewById(R.id.textwriter);
         signInBtn = findViewById(R.id.signInBtn);
         textwriter=findViewById(R.id.text);
