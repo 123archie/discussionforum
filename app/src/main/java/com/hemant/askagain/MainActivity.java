@@ -195,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
 //    }
    private void openHomePage() {
         // Opening the next activity
-//       FirebaseDatabase.getInstance().getReference().child("Users").child(acct.getId()).child("ProfilePic").setValue(account.getPhotoUrl().toString());
         Intent intent =new Intent(this, HomePage.class);
         startActivity(intent);
         finish();

@@ -63,7 +63,9 @@
                 android:layout_weight="0.7"
                 android:fontFamily="@font/spartan"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:text="@string/profession"
+                />
 
         </LinearLayout>
 

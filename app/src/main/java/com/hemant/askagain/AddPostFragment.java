@@ -1,26 +1,35 @@
 package com.hemant.askagain;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.util.Date;
 public class AddPostFragment extends Fragment {
     ImageView profilePic,imageQuestion,addQuestionPhoto;
@@ -76,7 +85,28 @@ public class AddPostFragment extends Fragment {
         assert bundle != null;
         userModel=new UserModel(bundle.getString("Name"), bundle.getString("Profession"), bundle.getString("ProfilePic"));
         profession = bundle.getString("Profession");
-        postedByProfession.setText("Profession");
+        DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("User").child(acct.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try{
+                    Log.d("ProcessMessage", "Message: msg");
+                    if(snapshot.child("profession").getValue().toString().equals("")){
+                        postedByProfession.setText("Profession");
+                    }else{
+                        postedByProfession.setText(snapshot.child("profession").getValue().toString());
+                    }
+                }
+                catch(Exception e){
+                    postedByProfession.setText("Profession");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
            }
     private void openHomePage() {
         Intent intent = new Intent(getContext(), HomePage.class);
