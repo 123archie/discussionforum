@@ -1,18 +1,20 @@
 package com.hemant.askagain;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hemant.askagain.databinding.PostDashboardBinding;
+
 import java.util.ArrayList;
 import java.util.Objects;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -42,7 +45,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     };
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
-
         PostModel postData = postList.get(position);
         // binding question
         try {
@@ -57,7 +59,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .child(postData.getPostedBy()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("Datasnapshot", "Datasnapshot: "+snapshot);
                  if(snapshot.exists()){
                     // binding profile pic
                     Glide.with(context)
@@ -65,7 +66,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                             .placeholder(R.drawable.profile)
                             .into(holder.postDashboardBinding.postedByProfilePic);
                     // binding name
-                     Log.d("ProfilePIc", "ProfilePic: "+snapshot.child("ProfilePic").getValue());
                      try {
                          holder.postDashboardBinding.postedByName.setText(snapshot.child("Name").getValue().toString());
                      }
@@ -73,16 +73,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                      }
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-        databaseReference.child("Posts").child(postData.getPostId())
+       databaseReference.child("Posts").child(postData.getPostId())
                 .child("likedBy").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,22 +90,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                     }
                 });
-
         databaseReference.child("Posts").child(postData.getPostId())
                 .child("comments").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         holder.postDashboardBinding.commentCount.setText(snapshot.getChildrenCount() + "");
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
-
         databaseReference.child("Posts").child(GoogleSignIn.getLastSignedInAccount(context).getId());
-
         if(postData.getImageQuestion() != null){
             Glide.with(context)
                     .load(postData.getImageQuestion())
@@ -117,27 +110,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }else{
             holder.postDashboardBinding.imageQuestion.setVisibility(View.GONE);
         }
-
         holder.postDashboardBinding.like.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View view) {
-               // if like button clicked
-
-//                count++;
-
-//                    if(color == 0x1976D2){
-//                        holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
-//                    }
-//                    if(color==0xFF000000){
-//                        holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
-//                    }
-//                ColorDrawable buttonColor=(ColorDrawable)holder.postDashboardBinding.like.getBackground();
-//                Log.d("ColorDrawable", "ColorDrawable: "+buttonColor);
-//                int color=buttonColor.getColor();
-//                if(color == 0x1976D2){
-//                        holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
-//                    }
                     Animation animation=new RotateAnimation(
                         0,
                         -20,
@@ -155,43 +130,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         if(snapshot.exists()){
                             holder.postDashboardBinding.like.setColorFilter(Color.rgb(0, 0, 0));
                             // already liked now remove like count and change color
-
                             FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
                                     .child("likedBy").child(GoogleSignIn.getLastSignedInAccount(view.getContext()).getId()).removeValue();
-
-//                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
-//                                    .child("likeCount").addListenerForSingleValueEvent(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                            int likeCount =0;
-//                                            if(snapshot.exists()){
-//                                                likeCount = snapshot.getValue(Integer.class);
-//                                            }
-//                                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
-//                                                    .child("likeCount").setValue(likeCount -1);
-//                                            holder.postDashboardBinding.likeCount.setText(likeCount - 1  + "");
-//                                            holder.postDashboardBinding.like.setColorFilter(R.color.black);
-//                                        }
-
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                        }
-//                                    });
-
-                            FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
+                           FirebaseDatabase.getInstance().getReference().child("Posts").child(postData.getPostId())
                                     .child("likedBy").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             holder.postDashboardBinding.likeCount.setText(snapshot.getChildrenCount() + "");
                                         }
-
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
 
                                         }
                                     });
-
                         }else{
                             holder.postDashboardBinding.like.setColorFilter(Color.rgb(51, 153, 255));
                             databaseReference.child("Posts").child(postData.getPostId())
@@ -205,7 +156,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                             holder.postDashboardBinding.likeCount.setText(snapshot.getChildrenCount() + "");
                                                         }
-
                                                         @Override
                                                         public void onCancelled(@NonNull DatabaseError error) {
 
@@ -214,9 +164,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                                         }
                                     });
                         }
-
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -224,7 +172,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 });
             }
         });
-
         databaseReference.child("Posts")
                 .child(postData.getPostId())
                 .child("likedBy")
@@ -232,20 +179,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-//                            holder.postDashboardBinding.like.setColorFilter(R.color.blue_shade);
+
                         }
                         else{
-//                            holder.postDashboardBinding.like.setColorFilter(Color.rgb(0,0,0));
+
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
-
-
         holder.postDashboardBinding.comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -267,7 +211,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         PostDashboardBinding postDashboardBinding;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             postDashboardBinding = PostDashboardBinding.bind(itemView);

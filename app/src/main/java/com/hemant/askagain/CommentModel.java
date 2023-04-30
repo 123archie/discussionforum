@@ -4,11 +4,8 @@ public class CommentModel {
     private String commentedBy;
     private String textAnswer;
     private String imageAnswer;
-
     public CommentModel() {
     }
-
-
     public String getTextAnswer() {
         return textAnswer;
     }
@@ -32,7 +29,4 @@ public class CommentModel {
     public void setCommentedBy(String commentedBy) {
         this.commentedBy = commentedBy;
     }
-
-
-
 }

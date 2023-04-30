@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">SociDesk</string>
-
     <string name="add_post">Post</string>
-
     <string name="your_comments">Your Comments...</string>
     <string name="Home">Home</string>
     <string name="Dashboard">Dashboard</string>
@@ -13,6 +11,28 @@
     <string name="welcome">Welcome!Login Here</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profession">Profession</string>
-
-
+    <string name="name">Name</string>
+    <string name="time">Time</string>
+    <string name="question_asked_for_in_words">Question Asked for in words?</string>
+    <string name="NAME">NAME</string>
+    <string name="type_your_answer">Type your answer..</string>
+    <string name="add_comment">+Add Comment</string>
+    <string name="nAME">NAME</string>
+    <string name="Add_post">+Add Post</string>
+    <string name="what_is_your_question">What is your question</string>
+    <string name="Name">NAME</string>
+    <string name="Profession">Profession</string>
+    <string name="email">Email</string>
+    <string name="someone_gmail_com">someone@gmail.com</string>
+    <string name="contact">Contact</string>
+    <string name="_99999xxxxx">99999XXXXX</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="PROFESSION">Profession</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout">LogOUT</string>
+    <string name="add_comments">+Add Comments</string>
+    <string name="NamE">Name</string>
+    <string name="Tine">Time</string>
+    <string name="_0">0</string>
 </resources>

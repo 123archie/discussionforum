@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -77,7 +76,6 @@ public class AddCommentFragment extends Fragment {
         });
         return view;
     }
-
     private void setProfilePhoto() {
         acct = GoogleSignIn.getLastSignedInAccount(getContext());
         if (acct != null) {
@@ -103,7 +101,6 @@ public class AddCommentFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(data.getData() != null){
             uri = data.getData();
             imageAnswer.setImageURI(uri);
@@ -123,13 +120,10 @@ public class AddCommentFragment extends Fragment {
             });
         }
     }
-
     private void setCommentPhoto(Uri uri) {
         commentModel.setImageAnswer(uri.toString());
         Toast.makeText(getView().getContext(), "Image is all set", Toast.LENGTH_LONG ).show();
-
     }
-
     private void getBundle() {
         Bundle bundle = this.getArguments();
         PostId = bundle.getString("PostId");
@@ -139,13 +133,13 @@ public class AddCommentFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try{
                     if(snapshot.child("profession").getValue().toString().equals("")){
-                        postedByProfession.setText("Profession");
+
                     }else{
                         postedByProfession.setText(snapshot.child("profession").getValue().toString());
                     }
                 }
                 catch(Exception e){
-                    postedByProfession.setText("Profession");
+
                 }
             }
             @Override
@@ -158,7 +152,6 @@ public class AddCommentFragment extends Fragment {
         acct = GoogleSignIn.getLastSignedInAccount(getContext());
         commentedByName.setText(acct.getDisplayName());
     }
-
     private void initViews(View view) {
         profilePic = view.findViewById(R.id.profilePic);
         imageAnswer = view.findViewById(R.id.imageAnswer);

@@ -26,14 +26,12 @@ public class DashboardFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton fabAddPostBtn;
     private String name, profilepic,profession;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         initViews(view);
-
         if(fabAddPostBtn.getVisibility()==GONE){
             fabAddPostBtn.setVisibility(View.VISIBLE);
         }
@@ -44,11 +42,8 @@ public class DashboardFragment extends Fragment {
                 openAddPostFragment(new AddPostFragment());
             }
         });
-
         return view;
     }
-
-
     private void openAddPostFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction= requireActivity().getSupportFragmentManager().beginTransaction();
         GoogleSignInAccount acct= GoogleSignIn.getLastSignedInAccount(getContext());
@@ -79,14 +74,12 @@ public class DashboardFragment extends Fragment {
                     postAdapter.notifyItemInserted(1);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
-
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.recyclerView);
         fabAddPostBtn = view.findViewById(R.id.fabAddPostBtn);

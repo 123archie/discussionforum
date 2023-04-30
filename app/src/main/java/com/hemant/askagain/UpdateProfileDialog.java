@@ -1,5 +1,4 @@
 package com.hemant.askagain;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -16,7 +15,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 public class UpdateProfileDialog extends AppCompatDialogFragment {
-
     TextInputEditText etProfession,etContact;
     RadioGroup radioGroupGender;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -62,8 +60,6 @@ public class UpdateProfileDialog extends AppCompatDialogFragment {
                         databaseReference.child("gender").setValue(gender);
                     }
                 });
-
         return builder.create();
-
     }
 }

@@ -12,7 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hemant.askagain.databinding.CommentPostBinding;
 import java.util.ArrayList;
-
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     Context context;
     ArrayList<CommentModel> commentList;
@@ -26,7 +25,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         View view = LayoutInflater.from(context).inflate(R.layout.comment_post,parent,false);
         return new CommentAdapter.ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         CommentModel commentData = commentList.get(position);
@@ -44,16 +42,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     }catch(Exception e){
 
                     }
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
         if(commentData.getImageAnswer() != null){
             Glide.with(context)
                     .load(commentData.getImageAnswer())
@@ -61,14 +56,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             holder.commentPostBinding.imageAnswer.setVisibility(View.VISIBLE);
         }
     }
-
     @Override
     public int getItemCount() {
         return commentList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         CommentPostBinding commentPostBinding;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             commentPostBinding = CommentPostBinding.bind(itemView);

@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:fontFamily="@font/spartan"
-                android:text="NAME"
+                android:text="@string/NAME"
                 android:textColor="@color/black"
                 android:textScaleX="1.2"
                 android:textSize="18sp"
@@ -73,11 +73,10 @@
                 android:layout_marginTop="6sp"
                 android:layout_weight="0.7"
                 android:fontFamily="@font/spartan"
-                android:text="Profession"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
-        </LinearLayout>
 
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -85,7 +84,7 @@
         android:id="@+id/otfAnswerQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type your answer.."
+        android:hint="@string/type_your_answer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +117,6 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/otfAnswerQuestion"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50sp"
@@ -149,7 +147,7 @@
         android:backgroundTint="@color/blue_shade"
         android:fontFamily="@font/spartan"
         android:padding="10sp"
-        android:text="+Add Comment"
+        android:text="@string/add_comment"
         android:textAllCaps="false"
         android:textColor="@color/white_two"
         android:textSize="16sp"
@@ -158,6 +156,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

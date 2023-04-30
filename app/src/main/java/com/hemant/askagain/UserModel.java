@@ -1,5 +1,4 @@
 package com.hemant.askagain;
-
 public class UserModel {
     String name;
     String profilePic;
@@ -7,54 +6,52 @@ public class UserModel {
     String contactNumber;
     String profession;
     String gender;
-
     public UserModel() {
         }
-
-     public String getName () {
+    public String getName () {
          return name;
         }
-        public void setName (String name){
+    public void setName (String name){
             this.name = name;
         }
 
-        public String getProfilePic () {
+    public String getProfilePic () {
             return profilePic;
         }
 
-        public void setProfilePic (String profilePic){
+    public void setProfilePic (String profilePic){
             this.profilePic = profilePic;
         }
 
-        public String getEmail () {
+    public String getEmail () {
             return email;
         }
 
-        public void setEmail (String email){
+    public void setEmail (String email){
             this.email = email;
         }
 
-        public String getContactNumber () {
+    public String getContactNumber () {
             return contactNumber;
         }
 
-        public void setContactNumber (String contactNumber){
+    public void setContactNumber (String contactNumber){
             this.contactNumber = contactNumber;
         }
 
-        public String getProfession () {
+    public String getProfession () {
             return profession;
         }
 
-        public void setProfession (String profession){
+    public void setProfession (String profession){
             this.profession = profession;
         }
 
-        public String getGender () {
+    public String getGender () {
             return gender;
         }
 
-        public void setGender (String gender){
+    public void setGender (String gender){
             this.gender = gender;
         }
 
@@ -63,5 +60,4 @@ public class UserModel {
             this.profilePic = profilePic;
             this.email = email;
         }
-
     }

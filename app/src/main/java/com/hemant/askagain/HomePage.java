@@ -1,6 +1,5 @@
 package com.hemant.askagain;
 import android.os.Bundle;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -15,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hemant.askagain.databinding.ActivityHomePageBinding;
 import java.util.Objects;
-
 public class HomePage extends AppCompatActivity {
     ActivityHomePageBinding binding;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -30,7 +28,6 @@ public class HomePage extends AppCompatActivity {
         replaceFragment(new DashboardFragment());
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
-
                 case R.id.dashboard:
                     replaceFragment(new DashboardFragment());
                     break;
@@ -63,12 +60,9 @@ public class HomePage extends AppCompatActivity {
         if(userModel.getProfession()!=null){
             bundle.putString("Profession", userModel.getProfession());
         }
-
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment,fragment).addToBackStack(null).commit();
     }
-
-
     private void getUserInfo() {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
@@ -79,22 +73,17 @@ public class HomePage extends AppCompatActivity {
                         userModel = snapshot.getValue(UserModel.class);
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
         }
-
     }
-
-
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment,fragment);
         fragmentTransaction.addToBackStack(null).commit();
     }
-
 }

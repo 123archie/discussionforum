@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:fontFamily="@font/spartan"
-                android:text="NAME"
+                android:text="@string/nAME"
                 android:textColor="@color/black"
                 android:textScaleX="1.2"
                 android:textSize="18sp"
@@ -64,7 +64,6 @@
                 android:fontFamily="@font/spartan"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:text="@string/profession"
                 />
 
         </LinearLayout>
@@ -79,7 +78,7 @@
             android:backgroundTint="@color/blue_shade"
             android:fontFamily="@font/spartan"
             android:padding="10sp"
-            android:text="+Add Post"
+            android:text="@string/Add_post"
             android:textAllCaps="false"
             android:textColor="@color/white_two"
             android:textSize="16sp" />
@@ -90,7 +89,7 @@
         android:id="@+id/otfAskYourQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="What is your question"
+        android:hint="@string/what_is_your_question"
         android:layout_marginTop="0.1sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,8 +125,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"/>
 
-
-
     <ImageView
         android:id="@+id/addQuestionPhoto"
         android:layout_width="30dp"
@@ -140,6 +137,5 @@
         app:layout_constraintVertical_bias="0.85"
         app:layout_constraintHorizontal_bias="1"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

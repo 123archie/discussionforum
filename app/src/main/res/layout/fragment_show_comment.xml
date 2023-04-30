@@ -7,7 +7,6 @@
     tools:context=".ShowCommentFragment"
     android:paddingBottom="10dp">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentRecyclerView"
             android:layout_width="match_parent"
@@ -17,7 +16,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/commentBtn"
@@ -30,7 +28,7 @@
             android:backgroundTint="@color/blue_shade"
             android:fontFamily="@font/spartan"
             android:padding="10sp"
-            android:text="+Add Comments"
+            android:text="@string/add_comments"
             android:textAllCaps="false"
             android:textColor="@color/white_two"
             android:textSize="16sp"

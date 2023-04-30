@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -77,18 +76,14 @@ public class MainActivity extends AppCompatActivity {
                 signInBtn.setTextColor(Color.rgb(0,0,0));
             }
         });
-
          }
-
     private void checkPreviousSignIn() {
         // Check for any previous signIn UserModel after launch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
         if(account != null){
             openHomePage();
-        }
+      }
     }
-
     private void signIn() {
         Intent intent = googleSignInClient.getSignInIntent();
         startActivityForResult(intent,RC_SIGN_IN);
@@ -102,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             handleSignInResult(task);
         }
     }
-
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -110,15 +104,13 @@ public class MainActivity extends AppCompatActivity {
                 getProfileInfo();
                             }
             // Signed in successfully, show authenticated UI.
-
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.e("TaskResultFailed", "signInResult:failed code=" + e.getStatusCode());
         }
     }
-
-    private boolean dataExist() {
+   private boolean dataExist() {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         FirebaseDatabase.getInstance().getReference()
                 .child("User")
@@ -132,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                             alreadyExist = false;
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -140,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 });
         return alreadyExist;
     }
-
     private void getProfileInfo() {
         // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -159,11 +149,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(!snapshot.exists() || snapshot.exists()){
-                        Log.d("Account Display Name", "Account Display Name"+acct.getDisplayName());
                         FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Name").setValue(acct.getDisplayName());
-
                             Uri photoUrl=acct.getPhotoUrl();
-                            Log.d("Photo", "Photo: "+photoUrl);
                             try {
                                 FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(acct.getPhotoUrl().toString());
                                 FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -171,28 +158,23 @@ public class MainActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         String photoUrl=(String) snapshot.getValue();
                                     }
-
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
 
                                     }
                                 });
-
-
                         }catch(Exception e){
                             FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("ProfilePic").setValue(user);
                         }
                     FirebaseDatabase.getInstance().getReference().child("User").child(acct.getId()).child("Email").setValue(acct.getEmail());}
                     openHomePage();
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
         }
-//    }
    private void openHomePage() {
         // Opening the next activity
         Intent intent =new Intent(this, HomePage.class);
