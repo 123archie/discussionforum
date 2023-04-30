@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
@@ -18,7 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +39,7 @@ public class AddCommentFragment extends Fragment {
     Uri uri;
     GoogleSignInAccount acct;
     CommentModel commentModel;
+    private TextView postedByProfession;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -126,6 +133,26 @@ public class AddCommentFragment extends Fragment {
     private void getBundle() {
         Bundle bundle = this.getArguments();
         PostId = bundle.getString("PostId");
+        DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("User").child(acct.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try{
+                    if(snapshot.child("profession").getValue().toString().equals("")){
+                        postedByProfession.setText("Profession");
+                    }else{
+                        postedByProfession.setText(snapshot.child("profession").getValue().toString());
+                    }
+                }
+                catch(Exception e){
+                    postedByProfession.setText("Profession");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
             }
     private void setProfileName() {
         acct = GoogleSignIn.getLastSignedInAccount(getContext());
@@ -139,5 +166,6 @@ public class AddCommentFragment extends Fragment {
         commentedByName = view.findViewById(R.id.commentedByName);
         answerText = view.findViewById(R.id.answerText);
         addCommentBtn = view.findViewById(R.id.addCommentBtn);
+        postedByProfession=view.findViewById(R.id.personProfession);
     }
 }
