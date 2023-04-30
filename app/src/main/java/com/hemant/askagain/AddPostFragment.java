@@ -3,7 +3,6 @@ package com.hemant.askagain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,6 @@ public class AddPostFragment extends Fragment {
     PostModel postModel;
     DataSnapshot snapshot;
     UserModel userModel;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,7 +79,6 @@ public class AddPostFragment extends Fragment {
     }
     private void getBundle() {
         Bundle bundle = this.getArguments();
-
         assert bundle != null;
         userModel=new UserModel(bundle.getString("Name"), bundle.getString("Profession"), bundle.getString("ProfilePic"));
         profession = bundle.getString("Profession");
@@ -90,7 +87,6 @@ public class AddPostFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try{
-                    Log.d("ProcessMessage", "Message: msg");
                     if(snapshot.child("profession").getValue().toString().equals("")){
                         postedByProfession.setText("Profession");
                     }else{
@@ -101,8 +97,7 @@ public class AddPostFragment extends Fragment {
                     postedByProfession.setText("Profession");
                 }
             }
-
-            @Override
+           @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
@@ -164,5 +159,4 @@ public class AddPostFragment extends Fragment {
         addPostBtn = view.findViewById(R.id.addPostBtn);
         postedByProfession = view.findViewById(R.id.personProfession);
     }
-    
 }
