@@ -3,6 +3,7 @@ package com.hemant.askagain;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,11 +84,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .child("likedBy").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        holder.postDashboardBinding.likeCount.setText(snapshot.getChildrenCount() + "");
+                        holder.postDashboardBinding.likeCount.setText(snapshot.getChildrenCount()+"");
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
         databaseReference.child("Posts").child(postData.getPostId())
