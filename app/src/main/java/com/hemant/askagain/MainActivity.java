@@ -91,15 +91,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Log.d("GoogleSignInAccount", "GoogleSignINACcount:"+task.getResult());
+             if(requestCode == RC_SIGN_IN){
+            Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
+            Log.d("GoogleSignInAccount", "GoogleSignINACcount:"+requestCode);
             handleSignInResult(task);
         }
     }
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
+            Log.d("AccountGoogle", "AccountGoogle: "+account);
             if(dataExist()){
                 getProfileInfo();
                             }
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.e("TaskResultFailed", "signInResult:failed code=" + e.getStatusCode());
+            Log.e("TaskResultFailed", "signInResult:failed code=" + e);
         }
     }
    private boolean dataExist() {
