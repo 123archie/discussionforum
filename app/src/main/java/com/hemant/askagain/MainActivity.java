@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sarnava.textwriter.TextWriter;
+
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
     private Button signInBtn;
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            Log.d("AccountGoogle", "AccountGoogle: "+account);
+            Log.d("AccountGoogle", "AccountGoogle: "+dataExist());
             if(dataExist()){
                 getProfileInfo();
                             }
@@ -135,12 +138,13 @@ public class MainActivity extends AppCompatActivity {
     private void getProfileInfo() {
         // Getting the profile info of signed in userModel
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        Log.d("UserModelData", "UserModelData: "+acct);
         assert  acct!=null;
             try {
                 userModel = new UserModel(acct.getDisplayName(), acct.getPhotoUrl().toString(), acct.getEmail());
-            }
+                Log.d("UserModelData", "UserModelData: "+userModel);}
             catch(Exception e){
-                Log.e("TAG", "Exception: "+e);
+                Log.e("TAGException", "Exception: "+e);
             }
               FirebaseDatabase.getInstance()
                     .getReference()
